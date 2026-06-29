@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Token Command Center — Distribusi &amp; Utilisasi Hard Token</title>
+<style>
+:root{
+  --bg: #0A0F1C;
+  --bg-grad-1: #0B1220;
+  --bg-grad-2: #0E1830;
+  --panel: #121B2E;
+  --panel-2: #16213A;
+  --panel-border: rgba(201, 162, 75, 0.12);
+  --line: rgba(255,255,255,0.07);
+  --gold: #C9A24B;
+  --gold-soft: rgba(201, 162, 75, 0.16);
+  --gold-bright: #E8C673;
+  --text-hi: #EEF1F6;
+  --text-mid: #AEB7C9;
+  --text-low: #6E7790;
+  --green: #34D399;
+  --green-soft: rgba(52, 211, 153, 0.14);
+  --red: #F2607A;
+  --red-soft: rgba(242, 96, 122, 0.14);
+  --amber: #F0B44C;
+  --amber-soft: rgba(240, 180, 76, 0.14);
+  --blue: #5B8DEF;
+  --blue-soft: rgba(91, 141, 239, 0.14);
+  --purple: #9B8CF2;
+  --purple-soft: rgba(155, 140, 242, 0.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --font-display: 'Segoe UI Semibold', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'SF Mono', 'Consolas', 'Roboto Mono', monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  background: radial-gradient(ellipse 1200px 800px at 15% -10%, #15234A 0%, transparent 60%),
+              radial-gradient(ellipse 1000px 700px at 100% 0%, #1A1530 0%, transparent 55%),
+              linear-gradient(180deg, var(--bg-grad-1) 0%, var(--bg) 40%, #080C16 100%);
+  background-attachment: fixed;
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(201,162,75,0.25);border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(201,162,75,0.45);}
+
+.wrap{
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 28px 32px 80px;
+}
+
+/* ===== HEADER ===== */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.brand{display:flex; align-items:center; gap:14px;}
+.brand-mark{
+  width:46px;height:46px;border-radius:12px;
+  background: linear-gradient(135deg, var(--gold) 0%, #8C6B22 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-display); font-weight:800; font-size:18px; color:#0A0F1C;
+  box-shadow: 0 8px 24px rgba(201,162,75,0.25);
+  flex-shrink:0;
+}
+.brand-text .eyebrow{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--gold-bright);
+  text-transform: uppercase;
+  margin-bottom:3px;
+}
+.brand-text h1{
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-hi);
+  letter-spacing:-0.01em;
+}
+.brand-text .welcome-line{
+  font-size: 12.5px;
+  color: var(--text-mid);
+  margin-top: 6px;
+  font-weight: 500;
+}
+.brand-text .welcome-line .welcome-sep{
+  color: var(--gold-bright);
+  margin: 0 6px;
+}
+.topbar-meta{
+  display:flex; gap:22px; align-items:center;
+}
+.meta-item{text-align:right;}
+.meta-item .lbl{font-size:11px;color:var(--text-low);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px;}
+.meta-item .val{font-family:var(--font-mono);font-size:14px;color:var(--text-hi);font-weight:600;}
+.live-dot{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--green); margin-right:6px;
+  box-shadow:0 0 0 0 rgba(52,211,153,0.6);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(52,211,153,0.5);}
+  70%{box-shadow:0 0 0 7px rgba(52,211,153,0);}
+  100%{box-shadow:0 0 0 0 rgba(52,211,153,0);}
+}
+
+/* ===== UPLOAD BUTTON ===== */
+.upload-btn{
+  display:flex; align-items:center; gap:8px;
+  background: linear-gradient(135deg, var(--gold) 0%, #8C6B22 100%);
+  color:#0A0F1C;
+  border:none; border-radius:10px;
+  padding:10px 16px;
+  font-family: var(--font-body);
+  font-size:12.5px; font-weight:600;
+  cursor:pointer;
+  white-space:nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(201,162,75,0.22);
+}
+.upload-btn:hover{transform: translateY(-2px); box-shadow: 0 10px 22px rgba(201,162,75,0.32);}
+.upload-btn:active{transform: translateY(0);}
+.upload-btn svg{width:15px;height:15px; flex-shrink:0;}
+.upload-btn.generate-btn{
+  background: linear-gradient(135deg, var(--blue) 0%, #2F4F8C 100%);
+  color:#EEF1F6;
+  box-shadow: 0 6px 18px rgba(91,141,239,0.22);
+}
+.upload-btn.generate-btn:hover{box-shadow: 0 10px 22px rgba(91,141,239,0.32);}
+
+/* ===== UPLOAD TOAST ===== */
+.upload-toast{
+  display:none;
+  align-items:flex-start;
+  gap:14px;
+  background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
+  border:1px solid var(--panel-border);
+  border-radius: var(--radius-sm);
+  padding:14px 16px;
+  margin-bottom:18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.upload-toast.show{display:flex;}
+.upload-toast-icon{
+  width:34px;height:34px;border-radius:9px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background: var(--gold-soft); color: var(--gold);
+}
+.upload-toast-icon svg{width:18px;height:18px;}
+.upload-toast.success .upload-toast-icon{background:var(--green-soft); color:var(--green);}
+.upload-toast.error .upload-toast-icon{background:var(--red-soft); color:var(--red);}
+.upload-toast-body{flex:1;}
+.upload-toast-title{font-size:13.5px; font-weight:600; color:var(--text-hi); margin-bottom:2px;}
+.upload-toast-sub{font-size:12px; color:var(--text-mid);}
+.upload-toast-close{
+  background:transparent; border:none; color:var(--text-low); font-size:18px;
+  cursor:pointer; line-height:1; padding:2px 4px; flex-shrink:0;
+}
+.upload-toast-close:hover{color:var(--text-hi);}
+.spin{animation: spin 0.9s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+
+/* ===== KPI ROW ===== */
+.kpi-row{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap:14px;
+  margin-bottom: 22px;
+}
+.kpi-card{
+  background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
+  border:1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  position:relative;
+  overflow:hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+.kpi-card:hover{transform: translateY(-3px); border-color: rgba(201,162,75,0.35);}
+.kpi-card::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--accent-color, var(--gold)), transparent);
+}
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
+.kpi-icon{
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background: var(--icon-bg, var(--gold-soft));
+  color: var(--icon-color, var(--gold));
+}
+.kpi-icon svg{width:18px;height:18px;}
+.kpi-trend{
+  font-family:var(--font-mono); font-size:11px; font-weight:600;
+  padding:3px 7px; border-radius:6px;
+}
+.kpi-trend.up{color:var(--green); background:var(--green-soft);}
+.kpi-trend.warn{color:var(--red); background:var(--red-soft);}
+.kpi-trend.neutral{color:var(--text-mid); background:rgba(255,255,255,0.06);}
+.kpi-label{font-size:12px;color:var(--text-mid);margin-bottom:6px;font-weight:500;}
+.kpi-value{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--text-hi); letter-spacing:-0.01em;}
+.kpi-sub{font-size:11px;color:var(--text-low);margin-top:4px;font-family:var(--font-mono);}
+
+/* ===== GRID LAYOUT ===== */
+.grid-main{
+  display:grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+.grid-3{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:18px;
+  margin-bottom:18px;
+}
+.grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.panel{
+  background: linear-gradient(160deg, var(--panel) 0%, var(--panel-2) 100%);
+  border:1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 22px;
+}
+.panel-head{
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom:18px;
+}
+.panel-title{
+  font-family:var(--font-display);
+  font-size:15px; font-weight:600; color:var(--text-hi);
+  display:flex; align-items:center; gap:8px;
+}
+.panel-title .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);}
+.panel-sub{font-size:11.5px;color:var(--text-low); margin-top:3px;}
+.panel-tag{
+  font-family:var(--font-mono); font-size:10.5px; color:var(--gold-bright);
+  background:var(--gold-soft); padding:4px 9px; border-radius:6px;
+  white-space:nowrap;
+}
+
+/* ===== KANWIL MAP / BARS ===== */
+.kanwil-list{display:flex; flex-direction:column; gap:14px;}
+.kanwil-row{
+  display:grid;
+  grid-template-columns: 110px 1fr 56px;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+  padding:8px 10px;
+  border-radius:10px;
+  transition: background 0.2s ease;
+}
+.kanwil-row:hover{background:rgba(255,255,255,0.035);}
+.kanwil-row.active{background:rgba(201,162,75,0.08); box-shadow: inset 0 0 0 1px rgba(201,162,75,0.25);}
+.kanwil-name{font-size:13px; font-weight:600; color:var(--text-hi);}
+.kanwil-name .sub{display:block; font-size:10.5px; color:var(--text-low); font-weight:400; margin-top:1px;}
+.kanwil-bar-track{
+  height:10px; border-radius:6px; background:rgba(255,255,255,0.05);
+  display:flex; overflow:hidden;
+}
+.kanwil-bar-seg{height:100%; transition: width 1.2s cubic-bezier(.16,1,.3,1);}
+.kanwil-value{font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--text-hi); text-align:right;}
+
+/* ===== STATUS DONUT ===== */
+.donut-wrap{display:flex; align-items:center; gap:22px;}
+.donut-canvas-box{position:relative; width:150px; height:150px; flex-shrink:0;}
+.donut-center{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  text-align:center;
+}
+.donut-center .num{font-family:var(--font-display); font-size:24px; font-weight:700;}
+.donut-center .lbl{font-size:10px; color:var(--text-low); text-transform:uppercase; letter-spacing:0.06em;}
+.legend-list{display:flex; flex-direction:column; gap:11px; flex:1;}
+.legend-item{display:flex; align-items:center; justify-content:space-between; font-size:12.5px;}
+.legend-left{display:flex; align-items:center; gap:9px;}
+.legend-swatch{width:9px;height:9px;border-radius:3px;}
+.legend-name{color:var(--text-mid);}
+.legend-num{font-family:var(--font-mono); font-weight:600; color:var(--text-hi);}
+.legend-pct{font-family:var(--font-mono); font-size:10.5px; color:var(--text-low); margin-left:6px;}
+
+/* ===== Umur / Lokasi gauge cards ===== */
+.gauge-row{display:flex; gap:16px;}
+.gauge-card{flex:1; text-align:center;}
+.gauge-ring{position:relative; width:120px; height:120px; margin:0 auto 10px;}
+.gauge-ring .num{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--font-display); font-size:21px; font-weight:700;}
+.gauge-cap{font-size:12px; color:var(--text-mid); font-weight:500;}
+.gauge-sub{font-size:10.5px; color:var(--text-low); margin-top:2px;}
+
+/* ===== Bullet bars (Jenis Nasabah) ===== */
+.bullet-list{display:flex; flex-direction:column; gap:16px;}
+.bullet-item .bullet-top{display:flex;justify-content:space-between;margin-bottom:7px;}
+.bullet-name{font-size:12.5px;color:var(--text-mid); font-weight:500;}
+.bullet-val{font-family:var(--font-mono); font-size:12.5px; color:var(--text-hi); font-weight:600;}
+.bullet-track{height:8px;border-radius:5px;background:rgba(255,255,255,0.05); overflow:hidden;}
+.bullet-fill{height:100%;border-radius:5px; transition: width 1.2s cubic-bezier(.16,1,.3,1);}
+
+/* ===== Table ===== */
+.table-wrap{overflow-x:auto;}
+table{width:100%; border-collapse:collapse; font-size:12.5px;}
+thead th{
+  text-align:left; padding:10px 12px; color:var(--text-low);
+  font-weight:600; text-transform:uppercase; font-size:10.5px; letter-spacing:0.05em;
+  border-bottom:1px solid var(--line);
+  white-space:nowrap;
+  position:sticky; top:0; background:var(--panel); cursor:pointer;
+  user-select:none;
+}
+thead th:hover{color:var(--gold-bright);}
+thead th .arrow{font-size:9px; margin-left:3px; opacity:0.5;}
+tbody td{padding:10px 12px; border-bottom:1px solid var(--line); color:var(--text-mid); white-space:nowrap;}
+tbody tr{transition:background 0.15s ease;}
+tbody tr:hover{background:rgba(255,255,255,0.03);}
+td.name-cell{color:var(--text-hi); font-weight:600;}
+td.name-cell .kw-tag{
+  display:inline-block; margin-left:8px; font-family:var(--font-mono); font-size:9.5px;
+  color:var(--gold-bright); background:var(--gold-soft); padding:1px 6px; border-radius:5px;
+}
+td.num{font-family:var(--font-mono); text-align:right;}
+.mini-pill{
+  display:inline-flex; align-items:center; gap:5px;
+  padding:2px 8px; border-radius:20px; font-family:var(--font-mono); font-size:11px; font-weight:600;
+}
+.mini-pill.ok{color:var(--green); background:var(--green-soft);}
+.mini-pill.warn{color:var(--red); background:var(--red-soft);}
+.mini-bar-cell{display:flex; align-items:center; gap:8px;}
+.mini-bar-track{width:54px;height:6px;border-radius:4px;background:rgba(255,255,255,0.06); overflow:hidden;}
+.mini-bar-fill{height:100%; border-radius:4px; background:var(--gold);}
+
+/* search/filter bar */
+.table-controls{
+  display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap; align-items:center;
+}
+.search-box{
+  flex:1; min-width:220px;
+  background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:10px;
+  padding:9px 14px; display:flex; align-items:center; gap:8px;
+}
+.search-box svg{width:14px;height:14px; color:var(--text-low); flex-shrink:0;}
+.search-box input{
+  background:transparent; border:none; outline:none; color:var(--text-hi); font-size:13px; width:100%;
+  font-family:var(--font-body);
+}
+.search-box input::placeholder{color:var(--text-low);}
+.filter-chip{
+  font-size:12px; padding:8px 14px; border-radius:10px;
+  background:rgba(255,255,255,0.04); border:1px solid var(--line); color:var(--text-mid);
+  cursor:pointer; font-weight:500; transition: all 0.2s ease; white-space:nowrap;
+}
+.filter-chip:hover{border-color:rgba(201,162,75,0.35); color:var(--text-hi);}
+.filter-chip.active{background:var(--gold-soft); border-color:rgba(201,162,75,0.5); color:var(--gold-bright);}
+
+.table-scroll{max-height:480px; overflow-y:auto;}
+
+.foot-note{
+  margin-top: 26px; padding-top:18px; border-top:1px solid var(--line);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px; color:var(--text-low); flex-wrap:wrap; gap:10px;
+}
+
+@media (max-width: 1300px){
+  .kpi-row{grid-template-columns: repeat(3, 1fr);}
+  .grid-main{grid-template-columns: 1fr;}
+  .grid-3{grid-template-columns: 1fr 1fr;}
+}
+@media (max-width: 760px){
+  .kpi-row{grid-template-columns: repeat(2, 1fr);}
+  .grid-3{grid-template-columns: 1fr;}
+  .grid-2{grid-template-columns: 1fr;}
+  .wrap{padding:18px 14px 60px;}
+  .gauge-row{flex-direction:column;}
+  .topbar-meta{width:100%; justify-content:space-between; gap:14px; flex-wrap:wrap;}
+  .upload-btn{flex:1 1 auto; justify-content:center; min-width:140px;}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style data-view-only-lock="true">
+      #uploadBtn, #generateBtn, #fileInput { display:none !important; }
+      .upload-toast { display:none !important; }
+    </style></head>
+<body>
+<div class="wrap" id="app">
+  <!-- Header -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">HT</div>
+      <div class="brand-text">
+        <div class="eyebrow">Token Command Center</div>
+        <h1>Distribusi &amp; Utilisasi Hard Token — Kanwil &amp; Cabang</h1>
+        <div class="welcome-line">Welcome, Bpk. Arfandy <span class="welcome-sep">·</span> Divisi Digital &amp; Transaction Banking</div>
+      </div>
+    </div>
+    <div class="topbar-meta">
+      <div class="meta-item">
+        <div class="lbl">Status Data</div>
+        <div class="val"><span class="live-dot"></span><span id="meta-status-date">Per 29 Jun 2026</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="lbl">Total Unit Kerja</div>
+        <div class="val" id="meta-units">63 Cabang · 5 Kanwil</div>
+      </div>
+      <div class="meta-item">
+        <div class="lbl">Total Token</div>
+        <div class="val" id="meta-total">56.482 Unit</div>
+      </div>
+      <button class="upload-btn" id="uploadBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        Upload Data
+      </button>
+      <button class="upload-btn generate-btn" id="generateBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="12" cy="15" r="3.2"></circle><path d="M12 13.3v3.4M10.5 15h3"></path></svg>
+        Generate File View-Only
+      </button>
+      <input type="file" id="fileInput" accept=".xlsx" style="display:none;">
+    </div>
+  </div>
+
+  <!-- UPLOAD STATUS TOAST -->
+  <div class="upload-toast" id="uploadToast">
+    <div class="upload-toast-icon" id="uploadToastIcon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+    <div class="upload-toast-body">
+      <div class="upload-toast-title" id="uploadToastTitle">Data berhasil diperbarui</div>
+      <div class="upload-toast-sub" id="uploadToastSub">Registrasi Token 2026 - 23-06-2026 - Format Dashboard - Cpy (2).xlsx · 56.482 baris token dimuat</div>
+    </div>
+    <button class="upload-toast-close" id="uploadToastClose" type="button">×</button>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row" id="kpi-row">
+    <div class="kpi-card" style="--accent-color:#C9A24B">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:rgba(201,162,75,0.16); --icon-color:#C9A24B">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M3 11h18"></path><circle cx="8" cy="15" r="1"></circle></svg>
+        </div>
+        <div class="kpi-trend neutral">BASELINE</div>
+      </div>
+      <div class="kpi-label">Total Hard Token</div>
+      <div class="kpi-value" data-count="56482">56.482</div>
+      <div class="kpi-sub">63 cabang aktif</div>
+    </div>
+  
+    <div class="kpi-card" style="--accent-color:#34D399">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:rgba(52,211,153,0.16); --icon-color:#34D399">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path><path d="M3 12h4"></path><path d="M3 6h4"></path><path d="M3 18h4"></path></svg>
+        </div>
+        <div class="kpi-trend up">95.2%</div>
+      </div>
+      <div class="kpi-label">Token di Nasabah</div>
+      <div class="kpi-value" data-count="53772">53.772</div>
+      <div class="kpi-sub">95.2% dari total</div>
+    </div>
+  
+    <div class="kpi-card" style="--accent-color:#F2607A">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:rgba(242,96,122,0.16); --icon-color:#F2607A">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v4"></path><circle cx="12" cy="16" r="0.5" fill="currentColor"></circle></svg>
+        </div>
+        <div class="kpi-trend warn">RISIKO</div>
+      </div>
+      <div class="kpi-label">Hilang</div>
+      <div class="kpi-value" data-count="408">408</div>
+      <div class="kpi-sub">0.7% — perlu investigasi</div>
+    </div>
+  
+    <div class="kpi-card" style="--accent-color:#F0B44C">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:rgba(240,180,76,0.16); --icon-color:#F0B44C">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"></path></svg>
+        </div>
+        <div class="kpi-trend warn">RISIKO</div>
+      </div>
+      <div class="kpi-label">Rusak</div>
+      <div class="kpi-value" data-count="168">168</div>
+      <div class="kpi-sub">0.3% — perlu retur/ganti</div>
+    </div>
+  
+    <div class="kpi-card" style="--accent-color:#9B8CF2">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:rgba(155,140,242,0.16); --icon-color:#9B8CF2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>
+        </div>
+        <div class="kpi-trend neutral">BUFFER</div>
+      </div>
+      <div class="kpi-label">Stok Tersedia</div>
+      <div class="kpi-value" data-count="2134">2.134</div>
+      <div class="kpi-sub">3.8% siap distribusi</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: Kanwil distribution + Status donut -->
+  <div class="grid-main">
+    <div class="panel" id="panel-kanwil">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot"></span>Distribusi Token per Kanwil</div>
+          <div class="panel-sub">Klik kanwil untuk memfilter tabel cabang di bawah</div>
+        </div>
+        <div class="panel-tag" id="kanwil-filter-tag">SEMUA KANWIL</div>
+      </div>
+      <div class="kanwil-list" id="kanwil-list">
+    <div class="kanwil-row " data-kanwil="Kanwil 1">
+      <div class="kanwil-name">Kanwil 1<span class="sub">15 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 100%; background: linear-gradient(90deg, rgb(201, 162, 75), rgba(201, 162, 75, 0.6));" data-w="100.0"></div>
+      </div>
+      <div class="kanwil-value">20.159</div>
+    </div>
+    <div class="kanwil-row " data-kanwil="Kanwil 2">
+      <div class="kanwil-name">Kanwil 2<span class="sub">13 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 58%; background: linear-gradient(90deg, rgb(91, 141, 239), rgba(91, 141, 239, 0.6));" data-w="58.0"></div>
+      </div>
+      <div class="kanwil-value">11.690</div>
+    </div>
+    <div class="kanwil-row " data-kanwil="Kanwil 3">
+      <div class="kanwil-name">Kanwil 3<span class="sub">15 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 67.2%; background: linear-gradient(90deg, rgb(52, 211, 153), rgba(52, 211, 153, 0.6));" data-w="67.2"></div>
+      </div>
+      <div class="kanwil-value">13.538</div>
+    </div>
+    <div class="kanwil-row " data-kanwil="Kanwil 4">
+      <div class="kanwil-name">Kanwil 4<span class="sub">13 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 45.3%; background: linear-gradient(90deg, rgb(155, 140, 242), rgba(155, 140, 242, 0.6));" data-w="45.3"></div>
+      </div>
+      <div class="kanwil-value">9.122</div>
+    </div>
+    <div class="kanwil-row " data-kanwil="Kanwil 5">
+      <div class="kanwil-name">Kanwil 5<span class="sub">7 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 9.7%; background: linear-gradient(90deg, rgb(240, 180, 76), rgba(240, 180, 76, 0.6));" data-w="9.7"></div>
+      </div>
+      <div class="kanwil-value">1.959</div>
+    </div>
+    <div class="kanwil-row " data-kanwil="Kantor Pusat">
+      <div class="kanwil-name">Kantor Pusat<span class="sub">1 cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width: 0.1%; background: linear-gradient(90deg, rgb(242, 96, 122), rgba(242, 96, 122, 0.6));" data-w="0.1"></div>
+      </div>
+      <div class="kanwil-value">14</div>
+    </div></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--blue)"></span>Status Token</div>
+          <div class="panel-sub">Komposisi seluruh status hard token</div>
+        </div>
+      </div>
+      <div class="donut-wrap">
+        <div class="donut-canvas-box">
+          <div id="donutStatus" style="width:100%;height:100%;"><svg viewBox="0 0 150 150" width="100%" height="100%"><circle cx="75" cy="75" r="65" fill="none" stroke="#34D399" stroke-width="20" stroke-dasharray="388.81 19.60" transform="rotate(-90 75 75)" stroke-linecap="butt" class="donut-seg" style="--dash:388.81 19.60"></circle><circle cx="75" cy="75" r="65" fill="none" stroke="#9B8CF2" stroke-width="20" stroke-dasharray="15.43 392.98" transform="rotate(252.72724053680815 75 75)" stroke-linecap="butt" class="donut-seg" style="--dash:15.43 392.98"></circle><circle cx="75" cy="75" r="65" fill="none" stroke="#F2607A" stroke-width="20" stroke-dasharray="2.95 405.46" transform="rotate(266.32874190007436 75 75)" stroke-linecap="butt" class="donut-seg" style="--dash:2.95 405.46"></circle><circle cx="75" cy="75" r="65" fill="none" stroke="#F0B44C" stroke-width="20" stroke-dasharray="1.21 407.19" transform="rotate(268.9292163875217 75 75)" stroke-linecap="butt" class="donut-seg" style="--dash:1.21 407.19"></circle></svg></div>
+          <div class="donut-center">
+            <div class="num" id="donut-center-num">56.482</div>
+            <div class="lbl">Total Unit</div>
+          </div>
+        </div>
+        <div class="legend-list" id="status-legend">
+    <div class="legend-item">
+      <div class="legend-left">
+        <div class="legend-swatch" style="background:#34D399"></div>
+        <div class="legend-name">Token di Nasabah</div>
+      </div>
+      <div><span class="legend-num">53.772</span><span class="legend-pct">95.2%</span></div>
+    </div>
+  
+    <div class="legend-item">
+      <div class="legend-left">
+        <div class="legend-swatch" style="background:#9B8CF2"></div>
+        <div class="legend-name">Stok</div>
+      </div>
+      <div><span class="legend-num">2.134</span><span class="legend-pct">3.8%</span></div>
+    </div>
+  
+    <div class="legend-item">
+      <div class="legend-left">
+        <div class="legend-swatch" style="background:#F2607A"></div>
+        <div class="legend-name">Hilang</div>
+      </div>
+      <div><span class="legend-num">408</span><span class="legend-pct">0.7%</span></div>
+    </div>
+  
+    <div class="legend-item">
+      <div class="legend-left">
+        <div class="legend-swatch" style="background:#F0B44C"></div>
+        <div class="legend-name">Rusak</div>
+      </div>
+      <div><span class="legend-num">168</span><span class="legend-pct">0.3%</span></div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: Umur token / Lokasi / Jenis Nasabah -->
+  <div class="grid-3">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--amber)"></span>Usia Token</div>
+          <div class="panel-sub">Ambang batas 3 tahun pemakaian</div>
+        </div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-card">
+          <div class="gauge-ring"><div id="gaugeOld" style="width:100%;height:100%;"><svg viewBox="0 0 120 120" width="100%" height="100%">
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"></circle>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="#F2607A" stroke-width="12" stroke-dasharray="273.21 66.08" transform="rotate(-90 60 60)" stroke-linecap="round" class="gauge-fill" data-dash="273.21 66.08" style="transition: stroke-dasharray 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+  </svg></div><div class="num" id="gaugeOldNum">80.5%</div></div>
+          <div class="gauge-cap" style="color:var(--red)">&gt; 3 Tahun</div>
+          <div class="gauge-sub" id="gaugeOldSub">45.482 unit</div>
+        </div>
+        <div class="gauge-card">
+          <div class="gauge-ring"><div id="gaugeNew" style="width:100%;height:100%;"><svg viewBox="0 0 120 120" width="100%" height="100%">
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"></circle>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="#34D399" stroke-width="12" stroke-dasharray="66.08 273.21" transform="rotate(-90 60 60)" stroke-linecap="round" class="gauge-fill" data-dash="66.08 273.21" style="transition: stroke-dasharray 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+  </svg></div><div class="num" id="gaugeNewNum">19.5%</div></div>
+          <div class="gauge-cap" style="color:var(--green)">&lt; 3 Tahun</div>
+          <div class="gauge-sub" id="gaugeNewSub">11.000 unit</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--purple)"></span>Lokasi Fisik Token</div>
+          <div class="panel-sub">Posisi token saat ini</div>
+        </div>
+      </div>
+      <div class="gauge-row">
+        <div class="gauge-card">
+          <div class="gauge-ring"><div id="gaugeBranch" style="width:100%;height:100%;"><svg viewBox="0 0 120 120" width="100%" height="100%">
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"></circle>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="#9B8CF2" stroke-width="12" stroke-dasharray="337.21 2.08" transform="rotate(-90 60 60)" stroke-linecap="round" class="gauge-fill" data-dash="337.21 2.08" style="transition: stroke-dasharray 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+  </svg></div><div class="num" id="gaugeBranchNum">99.4%</div></div>
+          <div class="gauge-cap">Masih di Cabang</div>
+          <div class="gauge-sub" id="gaugeBranchSub">56.135 unit</div>
+        </div>
+        <div class="gauge-card">
+          <div class="gauge-ring"><div id="gaugeHQ" style="width:100%;height:100%;"><svg viewBox="0 0 120 120" width="100%" height="100%">
+    <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"></circle>
+    <circle cx="60" cy="60" r="54" fill="none" stroke="#5B8DEF" stroke-width="12" stroke-dasharray="2.08 337.21" transform="rotate(-90 60 60)" stroke-linecap="round" class="gauge-fill" data-dash="2.08 337.21" style="transition: stroke-dasharray 1.2s cubic-bezier(0.16, 1, 0.3, 1);"></circle>
+  </svg></div><div class="num" id="gaugeHQNum">0.6%</div></div>
+          <div class="gauge-cap">Kembali ke Pusat</div>
+          <div class="gauge-sub" id="gaugeHQSub">347 unit</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--green)"></span>Jenis Nasabah</div>
+          <div class="panel-sub">Segmentasi penggunaan token</div>
+        </div>
+      </div>
+      <div class="bullet-list" id="jenis-bullet-list">
+    <div class="bullet-item">
+      <div class="bullet-top">
+        <div class="bullet-name">NON PEMDA</div>
+        <div class="bullet-val">29.797 <span style="color:var(--text-low)">(55.4%)</span></div>
+      </div>
+      <div class="bullet-track"><div class="bullet-fill bullet-anim" style="width: 100%; background: rgb(91, 141, 239);" data-w="100.0"></div></div>
+    </div>
+    <div class="bullet-item">
+      <div class="bullet-top">
+        <div class="bullet-name">PEMDA</div>
+        <div class="bullet-val">19.978 <span style="color:var(--text-low)">(37.2%)</span></div>
+      </div>
+      <div class="bullet-track"><div class="bullet-fill bullet-anim" style="width: 67%; background: rgb(201, 162, 75);" data-w="67.0"></div></div>
+    </div>
+    <div class="bullet-item">
+      <div class="bullet-top">
+        <div class="bullet-name">SEKOLAH</div>
+        <div class="bullet-val">3.983 <span style="color:var(--text-low)">(7.4%)</span></div>
+      </div>
+      <div class="bullet-track"><div class="bullet-fill bullet-anim" style="width: 13.4%; background: rgb(52, 211, 153);" data-w="13.4"></div></div>
+    </div></div>
+    </div>
+  </div>
+
+  <!-- ROW 4: Aktivitas + Top Corporate -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--blue)"></span>Utilisasi Token Ter-assign</div>
+          <div class="panel-sub">Apakah token yang sudah di-assign benar-benar dipakai bertransaksi</div>
+        </div>
+      </div>
+      <div style="height:230px;">
+    
+    <div id="chartAktivitas" style="display:flex; flex-direction:column; height:100%; justify-content:center; gap:18px;">
+      <div style="width:100%;"><svg viewBox="0 0 560 64" width="100%" height="64"><rect x="0" y="0" width="265.08" height="64" rx="6" fill="#34D399" class="hbar-seg" data-w="265.08" style="transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);"></rect><rect x="265.0762478613405" y="0" width="294.92" height="64" rx="6" fill="rgba(242,96,122,0.55)" class="hbar-seg" data-w="294.92" style="transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);"></rect></svg></div>
+      <div style="display:flex; justify-content:center; gap:24px;">
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:3px;background:#34D399;display:inline-block;"></span>Aktif Transaksi — 25.453 (47.3%)</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:3px;background:rgba(242,96,122,0.55);display:inline-block;"></span>Tidak Transaksi — 28.319 (52.7%)</div>
+      </div>
+      <div style="text-align:center; font-size:11.5px; color:var(--text-low);">Dari 53.772 token yang ada di nasabah</div>
+    </div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title"><span class="dot" style="background:var(--gold)"></span>Top 10 Korporasi Pemegang Token</div>
+          <div class="panel-sub">Konsentrasi token pada nasabah korporat terbesar</div>
+        </div>
+      </div>
+      <div style="height:290px;"><div id="chartTopCorp" style="height:100%; overflow-y:auto; padding-right:4px; display:flex; flex-direction:column; justify-content:flex-start;">
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="PEMERINTAH PROVINSI JAWA BARAT">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">PEMERINTAH PROVINSI JAWA BARAT</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 100%; border-radius: 6px; background: rgb(201, 162, 75); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="100.0"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">1.559</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DISDIK, PEMUDA DAN OLAH RAGA  KRW">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DISDIK, PEMUDA DAN OLAH RAGA…</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 70.9%; border-radius: 6px; background: rgba(201, 162, 75, 0.78); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="70.9"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">1.105</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DESA KAB BOGOR">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DESA KAB BOGOR</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 54.7%; border-radius: 6px; background: rgba(201, 162, 75, 0.72); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="54.7"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">853</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="PEMERINTAH KOTA BANDUNG">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">PEMERINTAH KOTA BANDUNG</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 50.3%; border-radius: 6px; background: rgba(201, 162, 75, 0.66); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="50.3"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">784</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DINAS PEMBERDAYAAN MASYARAKAT DESA">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DINAS PEMBERDAYAAN MASYARAKA…</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 47%; border-radius: 6px; background: rgba(201, 162, 75, 0.59); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="47.0"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">732</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="KANTOR DINAS DPMD">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">KANTOR DINAS DPMD</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 36.1%; border-radius: 6px; background: rgba(201, 162, 75, 0.52); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="36.1"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">563</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DNS PEMBERDAYAAN MASYARAKAT &amp; DESA">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DNS PEMBERDAYAAN MASYARAKAT …</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 33.7%; border-radius: 6px; background: rgba(201, 162, 75, 0.46); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="33.7"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">525</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="BEN GJ DPKAD MAJALENGKA">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">BEN GJ DPKAD MAJALENGKA</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 32.3%; border-radius: 6px; background: rgba(201, 162, 75, 0.39); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="32.3"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">503</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DINAS PEMBERDAYA MASY&amp;DESA KAB CRB">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DINAS PEMBERDAYA MASY&amp;DESA K…</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 30.8%; border-radius: 6px; background: rgba(201, 162, 75, 0.33); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="30.8"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">480</div>
+    </div>
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="DPMD">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">DPMD</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height: 100%; width: 27.9%; border-radius: 6px; background: rgba(201, 162, 75, 0.27); transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);" data-w="27.9"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">435</div>
+    </div></div></div>
+    </div>
+  </div>
+
+  <!-- DETAIL TABLE -->
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title"><span class="dot"></span>Detail per Cabang</div>
+        <div class="panel-sub">63 cabang · klik header kolom untuk mengurutkan</div>
+      </div>
+      <div class="panel-tag" id="table-count-tag">63 CABANG</div>
+    </div>
+    <div class="table-controls">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="M21 21l-3.5-3.5"></path></svg>
+        <input type="text" id="searchInput" placeholder="Cari nama cabang...">
+      </div>
+      <div class="filter-chip active" data-kanwil="ALL">Semua Kanwil</div>
+      <div class="filter-chip" data-kanwil="Kanwil 1">Kanwil 1</div>
+      <div class="filter-chip" data-kanwil="Kanwil 2">Kanwil 2</div>
+      <div class="filter-chip" data-kanwil="Kanwil 3">Kanwil 3</div>
+      <div class="filter-chip" data-kanwil="Kanwil 4">Kanwil 4</div>
+      <div class="filter-chip" data-kanwil="Kanwil 5">Kanwil 5</div>
+    </div>
+    <div class="table-wrap table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th data-key="cabang">Cabang <span class="arrow">↕</span></th>
+            <th data-key="total">Total <span class="arrow">↕</span></th>
+            <th data-key="di_nasabah">Token di Nasabah <span class="arrow">↕</span></th>
+            <th data-key="stok">Stok <span class="arrow">↕</span></th>
+            <th data-key="hilang">Hilang <span class="arrow">↕</span></th>
+            <th data-key="rusak">Rusak <span class="arrow">↕</span></th>
+            <th data-key="lebih_3thn">&gt;3 Thn <span class="arrow">↕</span></th>
+            <th data-key="kurang_3thn">&lt;3 Thn <span class="arrow">↕</span></th>
+            <th data-key="kembali_pusat">Kembali Pusat <span class="arrow">↕</span></th>
+            <th data-key="aktif">Aktif Transaksi <span class="arrow">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="cabang-tbody">
+    <tr>
+      <td class="name-cell">CABANG UTAMA BANDUNG<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:100.0%"></div></div>
+          <span>3.080</span>
+        </div>
+      </td>
+      <td class="num">2.992</td>
+      <td class="num">63</td>
+      <td class="num"><span class="mini-pill warn">15</span></td>
+      <td class="num"><span class="mini-pill warn">10</span></td>
+      <td class="num">2.736</td>
+      <td class="num">344</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.660</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KCK BANTEN<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:83.2%"></div></div>
+          <span>2.563</span>
+        </div>
+      </td>
+      <td class="num">2.512</td>
+      <td class="num">14</td>
+      <td class="num"><span class="mini-pill warn">24</span></td>
+      <td class="num"><span class="mini-pill warn">13</span></td>
+      <td class="num">2.425</td>
+      <td class="num">138</td>
+      <td class="num"><span class="mini-pill ok">1</span></td>
+      <td class="num">885</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KARAWANG<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:68.3%"></div></div>
+          <span>2.104</span>
+        </div>
+      </td>
+      <td class="num">2.075</td>
+      <td class="num">26</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">1.984</td>
+      <td class="num">120</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.637</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIBINONG<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:67.1%"></div></div>
+          <span>2.066</span>
+        </div>
+      </td>
+      <td class="num">2.040</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">26</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.956</td>
+      <td class="num">110</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">993</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SOREANG<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:63.3%"></div></div>
+          <span>1.951</span>
+        </div>
+      </td>
+      <td class="num">1.840</td>
+      <td class="num">100</td>
+      <td class="num"><span class="mini-pill warn">11</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.429</td>
+      <td class="num">522</td>
+      <td class="num"><span class="mini-pill ok">125</span></td>
+      <td class="num">1.162</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUMBER<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:49.1%"></div></div>
+          <span>1.513</span>
+        </div>
+      </td>
+      <td class="num">1.431</td>
+      <td class="num">69</td>
+      <td class="num"><span class="mini-pill warn">12</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">1.028</td>
+      <td class="num">485</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">882</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG TAMANSARI<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:46.9%"></div></div>
+          <span>1.445</span>
+        </div>
+      </td>
+      <td class="num">1.408</td>
+      <td class="num">26</td>
+      <td class="num"><span class="mini-pill warn">4</span></td>
+      <td class="num"><span class="mini-pill warn">7</span></td>
+      <td class="num">1.086</td>
+      <td class="num">359</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">919</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUCI<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:46.6%"></div></div>
+          <span>1.434</span>
+        </div>
+      </td>
+      <td class="num">1.431</td>
+      <td class="num">3</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">938</td>
+      <td class="num">496</td>
+      <td class="num"><span class="mini-pill ok">21</span></td>
+      <td class="num">560</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIAMIS<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:46.3%"></div></div>
+          <span>1.425</span>
+        </div>
+      </td>
+      <td class="num">1.395</td>
+      <td class="num">28</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.229</td>
+      <td class="num">196</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">717</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIMAHI<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:45.0%"></div></div>
+          <span>1.386</span>
+        </div>
+      </td>
+      <td class="num">1.350</td>
+      <td class="num">19</td>
+      <td class="num"><span class="mini-pill warn">17</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.050</td>
+      <td class="num">336</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">595</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUMEDANG<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:41.5%"></div></div>
+          <span>1.278</span>
+        </div>
+      </td>
+      <td class="num">1.231</td>
+      <td class="num">44</td>
+      <td class="num"><span class="mini-pill warn">3</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.039</td>
+      <td class="num">239</td>
+      <td class="num"><span class="mini-pill ok">59</span></td>
+      <td class="num">504</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIKARANG<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:41.0%"></div></div>
+          <span>1.263</span>
+        </div>
+      </td>
+      <td class="num">1.256</td>
+      <td class="num">2</td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.103</td>
+      <td class="num">160</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">554</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG TANGERANG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:39.7%"></div></div>
+          <span>1.224</span>
+        </div>
+      </td>
+      <td class="num">1.222</td>
+      <td class="num">2</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.126</td>
+      <td class="num">98</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">788</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PALABUHANRATU<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:39.1%"></div></div>
+          <span>1.203</span>
+        </div>
+      </td>
+      <td class="num">1.185</td>
+      <td class="num">18</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.058</td>
+      <td class="num">145</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">704</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG DEPOK<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:37.1%"></div></div>
+          <span>1.142</span>
+        </div>
+      </td>
+      <td class="num">1.139</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">912</td>
+      <td class="num">230</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">404</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUKABUMI<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:37.1%"></div></div>
+          <span>1.142</span>
+        </div>
+      </td>
+      <td class="num">1.106</td>
+      <td class="num">34</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">1.062</td>
+      <td class="num">80</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">591</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG MAJALENGKA<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:37.1%"></div></div>
+          <span>1.142</span>
+        </div>
+      </td>
+      <td class="num">1.119</td>
+      <td class="num">23</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">926</td>
+      <td class="num">216</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">671</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PADALARANG<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:36.3%"></div></div>
+          <span>1.117</span>
+        </div>
+      </td>
+      <td class="num">1.054</td>
+      <td class="num">56</td>
+      <td class="num"><span class="mini-pill warn">6</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">816</td>
+      <td class="num">301</td>
+      <td class="num"><span class="mini-pill ok">104</span></td>
+      <td class="num">517</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG TANGERANG SELATAN<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:35.8%"></div></div>
+          <span>1.102</span>
+        </div>
+      </td>
+      <td class="num">1.083</td>
+      <td class="num">8</td>
+      <td class="num"><span class="mini-pill warn">9</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">891</td>
+      <td class="num">211</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">512</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG GARUT<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:35.7%"></div></div>
+          <span>1.099</span>
+        </div>
+      </td>
+      <td class="num">1.080</td>
+      <td class="num">15</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">4</span></td>
+      <td class="num">953</td>
+      <td class="num">146</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">817</td>
+    </tr>
+    <tr>
+      <td class="name-cell">KANWIL 2<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:35.3%"></div></div>
+          <span>1.086</span>
+        </div>
+      </td>
+      <td class="num">344</td>
+      <td class="num">742</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">0</td>
+      <td class="num">1.086</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">153</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KABUPATEN TASIKMALAYA<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:35.0%"></div></div>
+          <span>1.077</span>
+        </div>
+      </td>
+      <td class="num">1.072</td>
+      <td class="num">5</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">1.025</td>
+      <td class="num">52</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">399</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BOGOR<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:34.6%"></div></div>
+          <span>1.066</span>
+        </div>
+      </td>
+      <td class="num">1.056</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num">846</td>
+      <td class="num">220</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">465</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIANJUR<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:33.7%"></div></div>
+          <span>1.038</span>
+        </div>
+      </td>
+      <td class="num">1.019</td>
+      <td class="num">18</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">888</td>
+      <td class="num">150</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">603</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUBANG<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:33.1%"></div></div>
+          <span>1.021</span>
+        </div>
+      </td>
+      <td class="num">839</td>
+      <td class="num">24</td>
+      <td class="num"><span class="mini-pill warn">158</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">785</td>
+      <td class="num">236</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">524</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BUAHBATU<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:33.0%"></div></div>
+          <span>1.016</span>
+        </div>
+      </td>
+      <td class="num">1.001</td>
+      <td class="num">13</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">658</td>
+      <td class="num">358</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">486</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KCK JAKARTA<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:31.5%"></div></div>
+          <span>971</span>
+        </div>
+      </td>
+      <td class="num">959</td>
+      <td class="num">4</td>
+      <td class="num"><span class="mini-pill warn">7</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">825</td>
+      <td class="num">146</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">221</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KABUPATEN TANGERANG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:31.4%"></div></div>
+          <span>967</span>
+        </div>
+      </td>
+      <td class="num">954</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">13</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">825</td>
+      <td class="num">142</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">575</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BANJAR<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:30.6%"></div></div>
+          <span>941</span>
+        </div>
+      </td>
+      <td class="num">927</td>
+      <td class="num">14</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">801</td>
+      <td class="num">140</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">312</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG RANGKASBITUNG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:30.1%"></div></div>
+          <span>928</span>
+        </div>
+      </td>
+      <td class="num">908</td>
+      <td class="num">19</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">918</td>
+      <td class="num">10</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">430</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PANGANDARAN<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:30.0%"></div></div>
+          <span>923</span>
+        </div>
+      </td>
+      <td class="num">763</td>
+      <td class="num">89</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">71</span></td>
+      <td class="num">473</td>
+      <td class="num">450</td>
+      <td class="num"><span class="mini-pill ok">2</span></td>
+      <td class="num">533</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CIREBON<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:29.9%"></div></div>
+          <span>920</span>
+        </div>
+      </td>
+      <td class="num">879</td>
+      <td class="num">39</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">731</td>
+      <td class="num">189</td>
+      <td class="num"><span class="mini-pill ok">19</span></td>
+      <td class="num">433</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KUNINGAN<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:29.2%"></div></div>
+          <span>898</span>
+        </div>
+      </td>
+      <td class="num">865</td>
+      <td class="num">33</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">724</td>
+      <td class="num">174</td>
+      <td class="num"><span class="mini-pill ok">2</span></td>
+      <td class="num">527</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PURWAKARTA<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:29.0%"></div></div>
+          <span>893</span>
+        </div>
+      </td>
+      <td class="num">772</td>
+      <td class="num">118</td>
+      <td class="num"><span class="mini-pill warn">3</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">718</td>
+      <td class="num">175</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">428</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG KEBAYORAN BARU<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:27.5%"></div></div>
+          <span>848</span>
+        </div>
+      </td>
+      <td class="num">843</td>
+      <td class="num">2</td>
+      <td class="num"><span class="mini-pill warn">3</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">768</td>
+      <td class="num">80</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">200</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SUKAJADI<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:25.7%"></div></div>
+          <span>792</span>
+        </div>
+      </td>
+      <td class="num">786</td>
+      <td class="num">6</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">670</td>
+      <td class="num">122</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">180</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG TASIKMALAYA<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:22.3%"></div></div>
+          <span>686</span>
+        </div>
+      </td>
+      <td class="num">660</td>
+      <td class="num">21</td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">526</td>
+      <td class="num">160</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">260</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG CILEGON<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:21.8%"></div></div>
+          <span>670</span>
+        </div>
+      </td>
+      <td class="num">653</td>
+      <td class="num">6</td>
+      <td class="num"><span class="mini-pill warn">11</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">606</td>
+      <td class="num">64</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">288</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG RASUNA SAID<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:20.0%"></div></div>
+          <span>615</span>
+        </div>
+      </td>
+      <td class="num">603</td>
+      <td class="num">11</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">488</td>
+      <td class="num">127</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">134</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BEKASI<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:19.8%"></div></div>
+          <span>610</span>
+        </div>
+      </td>
+      <td class="num">597</td>
+      <td class="num">11</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">468</td>
+      <td class="num">142</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">299</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG INDRAMAYU<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:19.4%"></div></div>
+          <span>596</span>
+        </div>
+      </td>
+      <td class="num">589</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num">381</td>
+      <td class="num">215</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">296</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG MAJALAYA<span class="kw-tag">KW1</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:17.4%"></div></div>
+          <span>537</span>
+        </div>
+      </td>
+      <td class="num">532</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">507</td>
+      <td class="num">30</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">211</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG GAJAH MADA<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:16.3%"></div></div>
+          <span>503</span>
+        </div>
+      </td>
+      <td class="num">500</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">3</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">443</td>
+      <td class="num">60</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">104</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SURABAYA<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:14.9%"></div></div>
+          <span>459</span>
+        </div>
+      </td>
+      <td class="num">437</td>
+      <td class="num">8</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span class="mini-pill warn">13</span></td>
+      <td class="num">369</td>
+      <td class="num">90</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">111</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PATROL<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:14.1%"></div></div>
+          <span>434</span>
+        </div>
+      </td>
+      <td class="num">418</td>
+      <td class="num">12</td>
+      <td class="num"><span class="mini-pill warn">4</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">295</td>
+      <td class="num">139</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">154</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG DAAN MOGOT<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:13.8%"></div></div>
+          <span>426</span>
+        </div>
+      </td>
+      <td class="num">410</td>
+      <td class="num">11</td>
+      <td class="num"><span class="mini-pill warn">5</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">382</td>
+      <td class="num">44</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">56</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG HASYIM ASHARI<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:13.1%"></div></div>
+          <span>402</span>
+        </div>
+      </td>
+      <td class="num">399</td>
+      <td class="num">3</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">308</td>
+      <td class="num">94</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">94</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SURAKARTA<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:12.9%"></div></div>
+          <span>397</span>
+        </div>
+      </td>
+      <td class="num">347</td>
+      <td class="num">50</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">227</td>
+      <td class="num">170</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">84</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG JATINANGOR<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:12.8%"></div></div>
+          <span>394</span>
+        </div>
+      </td>
+      <td class="num">367</td>
+      <td class="num">17</td>
+      <td class="num"><span class="mini-pill warn">8</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">240</td>
+      <td class="num">154</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">117</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG RAWAMANGUN<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:11.8%"></div></div>
+          <span>364</span>
+        </div>
+      </td>
+      <td class="num">357</td>
+      <td class="num">7</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">289</td>
+      <td class="num">75</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">77</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG S PARMAN<span class="kw-tag">KW2</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:10.6%"></div></div>
+          <span>328</span>
+        </div>
+      </td>
+      <td class="num">319</td>
+      <td class="num">2</td>
+      <td class="num"><span class="mini-pill warn">7</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">257</td>
+      <td class="num">71</td>
+      <td class="num"><span class="mini-pill ok">2</span></td>
+      <td class="num">59</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PANDEGLANG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:9.7%"></div></div>
+          <span>300</span>
+        </div>
+      </td>
+      <td class="num">295</td>
+      <td class="num">5</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">290</td>
+      <td class="num">10</td>
+      <td class="num"><span class="mini-pill ok">11</span></td>
+      <td class="num">45</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG MEDAN<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:9.3%"></div></div>
+          <span>286</span>
+        </div>
+      </td>
+      <td class="num">279</td>
+      <td class="num">3</td>
+      <td class="num"><span class="mini-pill warn">3</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">256</td>
+      <td class="num">30</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">35</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG SEMARANG<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:8.9%"></div></div>
+          <span>274</span>
+        </div>
+      </td>
+      <td class="num">267</td>
+      <td class="num">7</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">240</td>
+      <td class="num">34</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">55</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG DENPASAR<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:7.9%"></div></div>
+          <span>243</span>
+        </div>
+      </td>
+      <td class="num">240</td>
+      <td class="num">3</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">205</td>
+      <td class="num">38</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">52</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BATAM<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:7.3%"></div></div>
+          <span>226</span>
+        </div>
+      </td>
+      <td class="num">217</td>
+      <td class="num">7</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">186</td>
+      <td class="num">40</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">40</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BANDAR LAMPUNG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:7.3%"></div></div>
+          <span>224</span>
+        </div>
+      </td>
+      <td class="num">210</td>
+      <td class="num">12</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num">220</td>
+      <td class="num">4</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">39</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG TEGAL<span class="kw-tag">KW3</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:6.9%"></div></div>
+          <span>212</span>
+        </div>
+      </td>
+      <td class="num">195</td>
+      <td class="num">13</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span class="mini-pill warn">4</span></td>
+      <td class="num">139</td>
+      <td class="num">73</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">43</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BALIKPAPAN<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:6.8%"></div></div>
+          <span>209</span>
+        </div>
+      </td>
+      <td class="num">196</td>
+      <td class="num">2</td>
+      <td class="num"><span class="mini-pill warn">9</span></td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num">156</td>
+      <td class="num">53</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">78</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PALEMBANG<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:6.1%"></div></div>
+          <span>188</span>
+        </div>
+      </td>
+      <td class="num">177</td>
+      <td class="num">1</td>
+      <td class="num"><span class="mini-pill warn">2</span></td>
+      <td class="num"><span class="mini-pill warn">8</span></td>
+      <td class="num">133</td>
+      <td class="num">55</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">39</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG LABUAN<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:5.6%"></div></div>
+          <span>172</span>
+        </div>
+      </td>
+      <td class="num">166</td>
+      <td class="num">6</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">148</td>
+      <td class="num">24</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">58</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG PEKANBARU<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:4.9%"></div></div>
+          <span>152</span>
+        </div>
+      </td>
+      <td class="num">136</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">8</span></td>
+      <td class="num"><span class="mini-pill warn">8</span></td>
+      <td class="num">122</td>
+      <td class="num">30</td>
+      <td class="num"><span class="mini-pill ok">1</span></td>
+      <td class="num">19</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG MAKASSAR<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:4.8%"></div></div>
+          <span>147</span>
+        </div>
+      </td>
+      <td class="num">143</td>
+      <td class="num">4</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">105</td>
+      <td class="num">42</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">30</td>
+    </tr>
+    <tr>
+      <td class="name-cell">KANWIL 5<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:4.4%"></div></div>
+          <span>136</span>
+        </div>
+      </td>
+      <td class="num">10</td>
+      <td class="num">126</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">0</td>
+      <td class="num">136</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">2</td>
+    </tr>
+    <tr>
+      <td class="name-cell">KANWIL 4<span class="kw-tag">KW4</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:3.9%"></div></div>
+          <span>120</span>
+        </div>
+      </td>
+      <td class="num">21</td>
+      <td class="num">99</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">0</td>
+      <td class="num">120</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">11</td>
+    </tr>
+    <tr>
+      <td class="name-cell">CABANG BANJARMASIN<span class="kw-tag">KW5</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:3.1%"></div></div>
+          <span>94</span>
+        </div>
+      </td>
+      <td class="num">93</td>
+      <td class="num">0</td>
+      <td class="num"><span class="mini-pill warn">1</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">94</td>
+      <td class="num">0</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">22</td>
+    </tr>
+    <tr>
+      <td class="name-cell">Divisi DTB<span class="kw-tag">Kantor Pusat</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:0.5%"></div></div>
+          <span>14</span>
+        </div>
+      </td>
+      <td class="num">3</td>
+      <td class="num">11</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">0</td>
+      <td class="num">14</td>
+      <td class="num"><span style="color:var(--text-low)">0</span></td>
+      <td class="num">0</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script id="dashboard-data" type="application/json">{"kpi":{"total_token":56482,"di_nasabah":53772,"assign":53772,"reserved":0,"stok":2134,"hilang":408,"rusak":168,"lebih_3thn":45482,"kurang_3thn":11000,"kembali_pusat":347,"masih_cabang":56135,"aktif_transaksi":25453,"tidak_transaksi":31029,"jumlah_kanwil":6,"jumlah_cabang":67},"per_kanwil":[{"kanwil":"Kanwil 1","total":20159,"di_nasabah":19390,"assign":19390,"reserved":0,"stok":524,"hilang":223,"rusak":22,"lebih_3thn":16385,"kurang_3thn":3774,"kembali_pusat":250,"masih_cabang":19909,"aktif":10777,"tidak_aktif":9382,"jumlah_cabang":15,"pemda":6904,"non_pemda":10230,"sekolah":2252,"cms":4,"tidak_terdaftar":769},{"kanwil":"Kanwil 2","total":11690,"di_nasabah":10822,"assign":10822,"reserved":0,"stok":795,"hilang":65,"rusak":8,"lebih_3thn":9045,"kurang_3thn":2645,"kembali_pusat":2,"masih_cabang":11688,"aktif":3813,"tidak_aktif":7877,"jumlah_cabang":14,"pemda":2557,"non_pemda":7867,"sekolah":396,"cms":2,"tidak_terdaftar":868},{"kanwil":"Kanwil 3","total":13538,"di_nasabah":12991,"assign":12991,"reserved":0,"stok":422,"hilang":36,"rusak":89,"lebih_3thn":10510,"kurang_3thn":3028,"kembali_pusat":82,"masih_cabang":13456,"aktif":6665,"tidak_aktif":6873,"jumlah_cabang":15,"pemda":6298,"non_pemda":5829,"sekolah":860,"cms":4,"tidak_terdaftar":547},{"kanwil":"Kanwil 4","total":9122,"di_nasabah":8833,"assign":8833,"reserved":0,"stok":182,"hilang":73,"rusak":34,"lebih_3thn":8146,"kurang_3thn":976,"kembali_pusat":13,"masih_cabang":9109,"aktif":3764,"tidak_aktif":5358,"jumlah_cabang":14,"pemda":4215,"non_pemda":4152,"sekolah":463,"cms":3,"tidak_terdaftar":289},{"kanwil":"Kanwil 5","total":1959,"di_nasabah":1733,"assign":1733,"reserved":0,"stok":200,"hilang":11,"rusak":15,"lebih_3thn":1396,"kurang_3thn":563,"kembali_pusat":0,"masih_cabang":1959,"aktif":434,"tidak_aktif":1525,"jumlah_cabang":8,"pemda":4,"non_pemda":1716,"sekolah":12,"cms":1,"tidak_terdaftar":226},{"kanwil":"Kantor Pusat","total":14,"di_nasabah":3,"assign":3,"reserved":0,"stok":11,"hilang":0,"rusak":0,"lebih_3thn":0,"kurang_3thn":14,"kembali_pusat":0,"masih_cabang":14,"aktif":0,"tidak_aktif":14,"jumlah_cabang":1,"pemda":0,"non_pemda":3,"sekolah":0,"cms":0,"tidak_terdaftar":11}],"per_cabang":[{"cabang":"CABANG UTAMA BANDUNG","kanwil":"Kanwil 1","total":3080,"assign":2992,"reserved":0,"di_nasabah":2992,"stok":63,"hilang":15,"rusak":10,"lebih_3thn":2736,"kurang_3thn":344,"kembali_pusat":0,"masih_cabang":3080,"aktif":1660,"tidak_aktif":1420,"pemda":854,"non_pemda":1484,"sekolah":653,"cms":1,"tidak_terdaftar":88},{"cabang":"CABANG KCK BANTEN","kanwil":"Kanwil 4","total":2563,"assign":2512,"reserved":0,"di_nasabah":2512,"stok":14,"hilang":24,"rusak":13,"lebih_3thn":2425,"kurang_3thn":138,"kembali_pusat":1,"masih_cabang":2562,"aktif":885,"tidak_aktif":1678,"pemda":1915,"non_pemda":594,"sekolah":2,"cms":1,"tidak_terdaftar":51},{"cabang":"CABANG KARAWANG","kanwil":"Kanwil 1","total":2104,"assign":2075,"reserved":0,"di_nasabah":2075,"stok":26,"hilang":1,"rusak":2,"lebih_3thn":1984,"kurang_3thn":120,"kembali_pusat":0,"masih_cabang":2104,"aktif":1637,"tidak_aktif":467,"pemda":435,"non_pemda":516,"sekolah":1124,"cms":0,"tidak_terdaftar":29},{"cabang":"CABANG CIBINONG","kanwil":"Kanwil 2","total":2066,"assign":2040,"reserved":0,"di_nasabah":2040,"stok":0,"hilang":26,"rusak":0,"lebih_3thn":1956,"kurang_3thn":110,"kembali_pusat":0,"masih_cabang":2066,"aktif":993,"tidak_aktif":1073,"pemda":1203,"non_pemda":582,"sekolah":255,"cms":0,"tidak_terdaftar":26},{"cabang":"CABANG SOREANG","kanwil":"Kanwil 1","total":1951,"assign":1840,"reserved":0,"di_nasabah":1840,"stok":100,"hilang":11,"rusak":0,"lebih_3thn":1429,"kurang_3thn":522,"kembali_pusat":125,"masih_cabang":1826,"aktif":1162,"tidak_aktif":789,"pemda":1092,"non_pemda":674,"sekolah":73,"cms":1,"tidak_terdaftar":111},{"cabang":"CABANG SUMBER","kanwil":"Kanwil 3","total":1513,"assign":1431,"reserved":0,"di_nasabah":1431,"stok":69,"hilang":12,"rusak":1,"lebih_3thn":1028,"kurang_3thn":485,"kembali_pusat":0,"masih_cabang":1513,"aktif":882,"tidak_aktif":631,"pemda":1019,"non_pemda":381,"sekolah":29,"cms":2,"tidak_terdaftar":82},{"cabang":"CABANG TAMANSARI","kanwil":"Kanwil 1","total":1445,"assign":1408,"reserved":0,"di_nasabah":1408,"stok":26,"hilang":4,"rusak":7,"lebih_3thn":1086,"kurang_3thn":359,"kembali_pusat":0,"masih_cabang":1445,"aktif":919,"tidak_aktif":526,"pemda":783,"non_pemda":612,"sekolah":13,"cms":0,"tidak_terdaftar":37},{"cabang":"CABANG SUCI","kanwil":"Kanwil 1","total":1434,"assign":1431,"reserved":0,"di_nasabah":1431,"stok":3,"hilang":0,"rusak":0,"lebih_3thn":938,"kurang_3thn":496,"kembali_pusat":21,"masih_cabang":1413,"aktif":560,"tidak_aktif":874,"pemda":33,"non_pemda":1378,"sekolah":20,"cms":0,"tidak_terdaftar":3},{"cabang":"CABANG CIAMIS","kanwil":"Kanwil 3","total":1425,"assign":1395,"reserved":0,"di_nasabah":1395,"stok":28,"hilang":2,"rusak":0,"lebih_3thn":1229,"kurang_3thn":196,"kembali_pusat":0,"masih_cabang":1425,"aktif":717,"tidak_aktif":708,"pemda":1058,"non_pemda":306,"sekolah":31,"cms":0,"tidak_terdaftar":30},{"cabang":"CABANG CIMAHI","kanwil":"Kanwil 1","total":1386,"assign":1350,"reserved":0,"di_nasabah":1350,"stok":19,"hilang":17,"rusak":0,"lebih_3thn":1050,"kurang_3thn":336,"kembali_pusat":0,"masih_cabang":1386,"aktif":595,"tidak_aktif":791,"pemda":376,"non_pemda":957,"sekolah":17,"cms":0,"tidak_terdaftar":36},{"cabang":"CABANG SUMEDANG","kanwil":"Kanwil 3","total":1278,"assign":1231,"reserved":0,"di_nasabah":1231,"stok":44,"hilang":3,"rusak":0,"lebih_3thn":1039,"kurang_3thn":239,"kembali_pusat":59,"masih_cabang":1219,"aktif":504,"tidak_aktif":774,"pemda":636,"non_pemda":576,"sekolah":19,"cms":0,"tidak_terdaftar":47},{"cabang":"CABANG CIKARANG","kanwil":"Kanwil 2","total":1263,"assign":1256,"reserved":0,"di_nasabah":1256,"stok":2,"hilang":5,"rusak":0,"lebih_3thn":1103,"kurang_3thn":160,"kembali_pusat":0,"masih_cabang":1263,"aktif":554,"tidak_aktif":709,"pemda":615,"non_pemda":622,"sekolah":19,"cms":0,"tidak_terdaftar":7},{"cabang":"CABANG TANGERANG","kanwil":"Kanwil 4","total":1224,"assign":1222,"reserved":0,"di_nasabah":1222,"stok":2,"hilang":0,"rusak":0,"lebih_3thn":1126,"kurang_3thn":98,"kembali_pusat":0,"masih_cabang":1224,"aktif":788,"tidak_aktif":436,"pemda":205,"non_pemda":621,"sekolah":395,"cms":1,"tidak_terdaftar":2},{"cabang":"CABANG PALABUHANRATU","kanwil":"Kanwil 1","total":1203,"assign":1185,"reserved":0,"di_nasabah":1185,"stok":18,"hilang":0,"rusak":0,"lebih_3thn":1058,"kurang_3thn":145,"kembali_pusat":0,"masih_cabang":1203,"aktif":704,"tidak_aktif":499,"pemda":832,"non_pemda":333,"sekolah":20,"cms":0,"tidak_terdaftar":18},{"cabang":"CABANG DEPOK","kanwil":"Kanwil 2","total":1142,"assign":1139,"reserved":0,"di_nasabah":1139,"stok":0,"hilang":1,"rusak":2,"lebih_3thn":912,"kurang_3thn":230,"kembali_pusat":0,"masih_cabang":1142,"aktif":404,"tidak_aktif":738,"pemda":298,"non_pemda":821,"sekolah":20,"cms":0,"tidak_terdaftar":3},{"cabang":"CABANG SUKABUMI","kanwil":"Kanwil 1","total":1142,"assign":1106,"reserved":0,"di_nasabah":1106,"stok":34,"hilang":1,"rusak":1,"lebih_3thn":1062,"kurang_3thn":80,"kembali_pusat":0,"masih_cabang":1142,"aktif":591,"tidak_aktif":551,"pemda":408,"non_pemda":460,"sekolah":238,"cms":0,"tidak_terdaftar":36},{"cabang":"CABANG MAJALENGKA","kanwil":"Kanwil 3","total":1142,"assign":1119,"reserved":0,"di_nasabah":1119,"stok":23,"hilang":0,"rusak":0,"lebih_3thn":926,"kurang_3thn":216,"kembali_pusat":0,"masih_cabang":1142,"aktif":671,"tidak_aktif":471,"pemda":643,"non_pemda":466,"sekolah":10,"cms":0,"tidak_terdaftar":23},{"cabang":"CABANG PADALARANG","kanwil":"Kanwil 1","total":1117,"assign":1054,"reserved":0,"di_nasabah":1054,"stok":56,"hilang":6,"rusak":1,"lebih_3thn":816,"kurang_3thn":301,"kembali_pusat":104,"masih_cabang":1013,"aktif":517,"tidak_aktif":600,"pemda":485,"non_pemda":554,"sekolah":15,"cms":0,"tidak_terdaftar":63},{"cabang":"CABANG TANGERANG SELATAN","kanwil":"Kanwil 4","total":1102,"assign":1083,"reserved":0,"di_nasabah":1083,"stok":8,"hilang":9,"rusak":2,"lebih_3thn":891,"kurang_3thn":211,"kembali_pusat":0,"masih_cabang":1102,"aktif":512,"tidak_aktif":590,"pemda":276,"non_pemda":784,"sekolah":23,"cms":0,"tidak_terdaftar":19},{"cabang":"CABANG GARUT","kanwil":"Kanwil 3","total":1099,"assign":1080,"reserved":0,"di_nasabah":1080,"stok":15,"hilang":0,"rusak":4,"lebih_3thn":953,"kurang_3thn":146,"kembali_pusat":0,"masih_cabang":1099,"aktif":817,"tidak_aktif":282,"pemda":829,"non_pemda":249,"sekolah":2,"cms":0,"tidak_terdaftar":19},{"cabang":"KANWIL 2","kanwil":"Kanwil 2","total":1086,"assign":344,"reserved":0,"di_nasabah":344,"stok":742,"hilang":0,"rusak":0,"lebih_3thn":0,"kurang_3thn":1086,"kembali_pusat":0,"masih_cabang":1086,"aktif":153,"tidak_aktif":933,"pemda":42,"non_pemda":294,"sekolah":8,"cms":0,"tidak_terdaftar":742},{"cabang":"CABANG KABUPATEN TASIKMALAYA","kanwil":"Kanwil 3","total":1077,"assign":1072,"reserved":0,"di_nasabah":1072,"stok":5,"hilang":0,"rusak":0,"lebih_3thn":1025,"kurang_3thn":52,"kembali_pusat":0,"masih_cabang":1077,"aktif":399,"tidak_aktif":678,"pemda":327,"non_pemda":506,"sekolah":239,"cms":0,"tidak_terdaftar":5},{"cabang":"CABANG BOGOR","kanwil":"Kanwil 2","total":1066,"assign":1056,"reserved":0,"di_nasabah":1056,"stok":0,"hilang":5,"rusak":5,"lebih_3thn":846,"kurang_3thn":220,"kembali_pusat":0,"masih_cabang":1066,"aktif":465,"tidak_aktif":601,"pemda":227,"non_pemda":818,"sekolah":11,"cms":0,"tidak_terdaftar":10},{"cabang":"CABANG CIANJUR","kanwil":"Kanwil 1","total":1038,"assign":1019,"reserved":0,"di_nasabah":1019,"stok":18,"hilang":0,"rusak":1,"lebih_3thn":888,"kurang_3thn":150,"kembali_pusat":0,"masih_cabang":1038,"aktif":603,"tidak_aktif":435,"pemda":682,"non_pemda":334,"sekolah":2,"cms":1,"tidak_terdaftar":19},{"cabang":"CABANG SUBANG","kanwil":"Kanwil 1","total":1021,"assign":839,"reserved":0,"di_nasabah":839,"stok":24,"hilang":158,"rusak":0,"lebih_3thn":785,"kurang_3thn":236,"kembali_pusat":0,"masih_cabang":1021,"aktif":524,"tidak_aktif":497,"pemda":330,"non_pemda":504,"sekolah":4,"cms":1,"tidak_terdaftar":182},{"cabang":"CABANG BUAHBATU","kanwil":"Kanwil 1","total":1016,"assign":1001,"reserved":0,"di_nasabah":1001,"stok":13,"hilang":2,"rusak":0,"lebih_3thn":658,"kurang_3thn":358,"kembali_pusat":0,"masih_cabang":1016,"aktif":486,"tidak_aktif":530,"pemda":4,"non_pemda":993,"sekolah":4,"cms":0,"tidak_terdaftar":15},{"cabang":"CABANG KCK JAKARTA","kanwil":"Kanwil 2","total":971,"assign":959,"reserved":0,"di_nasabah":959,"stok":4,"hilang":7,"rusak":1,"lebih_3thn":825,"kurang_3thn":146,"kembali_pusat":0,"masih_cabang":971,"aktif":221,"tidak_aktif":750,"pemda":0,"non_pemda":948,"sekolah":10,"cms":1,"tidak_terdaftar":12},{"cabang":"CABANG KABUPATEN TANGERANG","kanwil":"Kanwil 4","total":967,"assign":954,"reserved":0,"di_nasabah":954,"stok":0,"hilang":13,"rusak":0,"lebih_3thn":825,"kurang_3thn":142,"kembali_pusat":0,"masih_cabang":967,"aktif":575,"tidak_aktif":392,"pemda":679,"non_pemda":251,"sekolah":23,"cms":1,"tidak_terdaftar":13},{"cabang":"CABANG BANJAR","kanwil":"Kanwil 3","total":941,"assign":927,"reserved":0,"di_nasabah":927,"stok":14,"hilang":0,"rusak":0,"lebih_3thn":801,"kurang_3thn":140,"kembali_pusat":0,"masih_cabang":941,"aktif":312,"tidak_aktif":629,"pemda":307,"non_pemda":511,"sekolah":109,"cms":0,"tidak_terdaftar":14},{"cabang":"CABANG RANGKASBITUNG","kanwil":"Kanwil 4","total":928,"assign":908,"reserved":0,"di_nasabah":908,"stok":19,"hilang":0,"rusak":1,"lebih_3thn":918,"kurang_3thn":10,"kembali_pusat":0,"masih_cabang":928,"aktif":430,"tidak_aktif":498,"pemda":790,"non_pemda":118,"sekolah":0,"cms":0,"tidak_terdaftar":20},{"cabang":"CABANG PANGANDARAN","kanwil":"Kanwil 3","total":923,"assign":763,"reserved":0,"di_nasabah":763,"stok":89,"hilang":0,"rusak":71,"lebih_3thn":473,"kurang_3thn":450,"kembali_pusat":2,"masih_cabang":921,"aktif":533,"tidak_aktif":390,"pemda":312,"non_pemda":160,"sekolah":290,"cms":1,"tidak_terdaftar":160},{"cabang":"CABANG CIREBON","kanwil":"Kanwil 3","total":920,"assign":879,"reserved":0,"di_nasabah":879,"stok":39,"hilang":0,"rusak":2,"lebih_3thn":731,"kurang_3thn":189,"kembali_pusat":19,"masih_cabang":901,"aktif":433,"tidak_aktif":487,"pemda":285,"non_pemda":584,"sekolah":10,"cms":0,"tidak_terdaftar":41},{"cabang":"CABANG KUNINGAN","kanwil":"Kanwil 3","total":898,"assign":865,"reserved":0,"di_nasabah":865,"stok":33,"hilang":0,"rusak":0,"lebih_3thn":724,"kurang_3thn":174,"kembali_pusat":2,"masih_cabang":896,"aktif":527,"tidak_aktif":371,"pemda":413,"non_pemda":369,"sekolah":83,"cms":0,"tidak_terdaftar":33},{"cabang":"CABANG PURWAKARTA","kanwil":"Kanwil 1","total":893,"assign":772,"reserved":0,"di_nasabah":772,"stok":118,"hilang":3,"rusak":0,"lebih_3thn":718,"kurang_3thn":175,"kembali_pusat":0,"masih_cabang":893,"aktif":428,"tidak_aktif":465,"pemda":398,"non_pemda":346,"sekolah":28,"cms":0,"tidak_terdaftar":121},{"cabang":"CABANG KEBAYORAN BARU","kanwil":"Kanwil 2","total":848,"assign":843,"reserved":0,"di_nasabah":843,"stok":2,"hilang":3,"rusak":0,"lebih_3thn":768,"kurang_3thn":80,"kembali_pusat":0,"masih_cabang":848,"aktif":200,"tidak_aktif":648,"pemda":2,"non_pemda":841,"sekolah":0,"cms":0,"tidak_terdaftar":5},{"cabang":"CABANG SUKAJADI","kanwil":"Kanwil 1","total":792,"assign":786,"reserved":0,"di_nasabah":786,"stok":6,"hilang":0,"rusak":0,"lebih_3thn":670,"kurang_3thn":122,"kembali_pusat":0,"masih_cabang":792,"aktif":180,"tidak_aktif":612,"pemda":0,"non_pemda":780,"sekolah":6,"cms":0,"tidak_terdaftar":6},{"cabang":"CABANG TASIKMALAYA","kanwil":"Kanwil 3","total":686,"assign":660,"reserved":0,"di_nasabah":660,"stok":21,"hilang":5,"rusak":0,"lebih_3thn":526,"kurang_3thn":160,"kembali_pusat":0,"masih_cabang":686,"aktif":260,"tidak_aktif":426,"pemda":167,"non_pemda":482,"sekolah":10,"cms":1,"tidak_terdaftar":26},{"cabang":"CABANG CILEGON","kanwil":"Kanwil 4","total":670,"assign":653,"reserved":0,"di_nasabah":653,"stok":6,"hilang":11,"rusak":0,"lebih_3thn":606,"kurang_3thn":64,"kembali_pusat":0,"masih_cabang":670,"aktif":288,"tidak_aktif":382,"pemda":230,"non_pemda":415,"sekolah":8,"cms":0,"tidak_terdaftar":17},{"cabang":"CABANG RASUNA SAID","kanwil":"Kanwil 2","total":615,"assign":603,"reserved":0,"di_nasabah":603,"stok":11,"hilang":1,"rusak":0,"lebih_3thn":488,"kurang_3thn":127,"kembali_pusat":0,"masih_cabang":615,"aktif":134,"tidak_aktif":481,"pemda":0,"non_pemda":603,"sekolah":0,"cms":0,"tidak_terdaftar":12},{"cabang":"CABANG BEKASI","kanwil":"Kanwil 2","total":610,"assign":597,"reserved":0,"di_nasabah":597,"stok":11,"hilang":2,"rusak":0,"lebih_3thn":468,"kurang_3thn":142,"kembali_pusat":0,"masih_cabang":610,"aktif":299,"tidak_aktif":311,"pemda":145,"non_pemda":385,"sekolah":67,"cms":0,"tidak_terdaftar":13},{"cabang":"CABANG INDRAMAYU","kanwil":"Kanwil 3","total":596,"assign":589,"reserved":0,"di_nasabah":589,"stok":0,"hilang":2,"rusak":5,"lebih_3thn":381,"kurang_3thn":215,"kembali_pusat":0,"masih_cabang":596,"aktif":296,"tidak_aktif":300,"pemda":57,"non_pemda":521,"sekolah":11,"cms":0,"tidak_terdaftar":7},{"cabang":"CABANG MAJALAYA","kanwil":"Kanwil 1","total":537,"assign":532,"reserved":0,"di_nasabah":532,"stok":0,"hilang":5,"rusak":0,"lebih_3thn":507,"kurang_3thn":30,"kembali_pusat":0,"masih_cabang":537,"aktif":211,"tidak_aktif":326,"pemda":192,"non_pemda":305,"sekolah":35,"cms":0,"tidak_terdaftar":5},{"cabang":"CABANG GAJAH MADA","kanwil":"Kanwil 2","total":503,"assign":500,"reserved":0,"di_nasabah":500,"stok":0,"hilang":3,"rusak":0,"lebih_3thn":443,"kurang_3thn":60,"kembali_pusat":0,"masih_cabang":503,"aktif":104,"tidak_aktif":399,"pemda":2,"non_pemda":496,"sekolah":2,"cms":0,"tidak_terdaftar":3},{"cabang":"CABANG SURABAYA","kanwil":"Kanwil 5","total":459,"assign":437,"reserved":0,"di_nasabah":437,"stok":8,"hilang":1,"rusak":13,"lebih_3thn":369,"kurang_3thn":90,"kembali_pusat":0,"masih_cabang":459,"aktif":111,"tidak_aktif":348,"pemda":0,"non_pemda":430,"sekolah":6,"cms":1,"tidak_terdaftar":22},{"cabang":"CABANG PATROL","kanwil":"Kanwil 3","total":434,"assign":418,"reserved":0,"di_nasabah":418,"stok":12,"hilang":4,"rusak":0,"lebih_3thn":295,"kurang_3thn":139,"kembali_pusat":0,"masih_cabang":434,"aktif":154,"tidak_aktif":280,"pemda":243,"non_pemda":166,"sekolah":9,"cms":0,"tidak_terdaftar":16},{"cabang":"CABANG DAAN MOGOT","kanwil":"Kanwil 2","total":426,"assign":410,"reserved":0,"di_nasabah":410,"stok":11,"hilang":5,"rusak":0,"lebih_3thn":382,"kurang_3thn":44,"kembali_pusat":0,"masih_cabang":426,"aktif":56,"tidak_aktif":370,"pemda":0,"non_pemda":410,"sekolah":0,"cms":0,"tidak_terdaftar":16},{"cabang":"CABANG HASYIM ASHARI","kanwil":"Kanwil 2","total":402,"assign":399,"reserved":0,"di_nasabah":399,"stok":3,"hilang":0,"rusak":0,"lebih_3thn":308,"kurang_3thn":94,"kembali_pusat":0,"masih_cabang":402,"aktif":94,"tidak_aktif":308,"pemda":0,"non_pemda":398,"sekolah":0,"cms":1,"tidak_terdaftar":3},{"cabang":"CABANG SURAKARTA","kanwil":"Kanwil 5","total":397,"assign":347,"reserved":0,"di_nasabah":347,"stok":50,"hilang":0,"rusak":0,"lebih_3thn":227,"kurang_3thn":170,"kembali_pusat":0,"masih_cabang":397,"aktif":84,"tidak_aktif":313,"pemda":0,"non_pemda":347,"sekolah":0,"cms":0,"tidak_terdaftar":50},{"cabang":"CABANG JATINANGOR","kanwil":"Kanwil 3","total":394,"assign":367,"reserved":0,"di_nasabah":367,"stok":17,"hilang":8,"rusak":2,"lebih_3thn":240,"kurang_3thn":154,"kembali_pusat":0,"masih_cabang":394,"aktif":117,"tidak_aktif":277,"pemda":2,"non_pemda":359,"sekolah":6,"cms":0,"tidak_terdaftar":27},{"cabang":"CABANG RAWAMANGUN","kanwil":"Kanwil 2","total":364,"assign":357,"reserved":0,"di_nasabah":357,"stok":7,"hilang":0,"rusak":0,"lebih_3thn":289,"kurang_3thn":75,"kembali_pusat":0,"masih_cabang":364,"aktif":77,"tidak_aktif":287,"pemda":21,"non_pemda":332,"sekolah":4,"cms":0,"tidak_terdaftar":7},{"cabang":"CABANG S PARMAN","kanwil":"Kanwil 2","total":328,"assign":319,"reserved":0,"di_nasabah":319,"stok":2,"hilang":7,"rusak":0,"lebih_3thn":257,"kurang_3thn":71,"kembali_pusat":2,"masih_cabang":326,"aktif":59,"tidak_aktif":269,"pemda":2,"non_pemda":317,"sekolah":0,"cms":0,"tidak_terdaftar":9},{"cabang":"CABANG PANDEGLANG","kanwil":"Kanwil 4","total":300,"assign":295,"reserved":0,"di_nasabah":295,"stok":5,"hilang":0,"rusak":0,"lebih_3thn":290,"kurang_3thn":10,"kembali_pusat":11,"masih_cabang":289,"aktif":45,"tidak_aktif":255,"pemda":106,"non_pemda":189,"sekolah":0,"cms":0,"tidak_terdaftar":5},{"cabang":"CABANG MEDAN","kanwil":"Kanwil 4","total":286,"assign":279,"reserved":0,"di_nasabah":279,"stok":3,"hilang":3,"rusak":1,"lebih_3thn":256,"kurang_3thn":30,"kembali_pusat":0,"masih_cabang":286,"aktif":35,"tidak_aktif":251,"pemda":0,"non_pemda":277,"sekolah":2,"cms":0,"tidak_terdaftar":7},{"cabang":"CABANG SEMARANG","kanwil":"Kanwil 5","total":274,"assign":267,"reserved":0,"di_nasabah":267,"stok":7,"hilang":0,"rusak":0,"lebih_3thn":240,"kurang_3thn":34,"kembali_pusat":0,"masih_cabang":274,"aktif":55,"tidak_aktif":219,"pemda":0,"non_pemda":265,"sekolah":2,"cms":0,"tidak_terdaftar":7},{"cabang":"CABANG DENPASAR","kanwil":"Kanwil 5","total":243,"assign":240,"reserved":0,"di_nasabah":240,"stok":3,"hilang":0,"rusak":0,"lebih_3thn":205,"kurang_3thn":38,"kembali_pusat":0,"masih_cabang":243,"aktif":52,"tidak_aktif":191,"pemda":0,"non_pemda":236,"sekolah":4,"cms":0,"tidak_terdaftar":3},{"cabang":"CABANG BATAM","kanwil":"Kanwil 4","total":226,"assign":217,"reserved":0,"di_nasabah":217,"stok":7,"hilang":2,"rusak":0,"lebih_3thn":186,"kurang_3thn":40,"kembali_pusat":0,"masih_cabang":226,"aktif":40,"tidak_aktif":186,"pemda":0,"non_pemda":217,"sekolah":0,"cms":0,"tidak_terdaftar":9},{"cabang":"CABANG BANDAR LAMPUNG","kanwil":"Kanwil 4","total":224,"assign":210,"reserved":0,"di_nasabah":210,"stok":12,"hilang":1,"rusak":1,"lebih_3thn":220,"kurang_3thn":4,"kembali_pusat":0,"masih_cabang":224,"aktif":39,"tidak_aktif":185,"pemda":3,"non_pemda":204,"sekolah":3,"cms":0,"tidak_terdaftar":14},{"cabang":"CABANG TEGAL","kanwil":"Kanwil 3","total":212,"assign":195,"reserved":0,"di_nasabah":195,"stok":13,"hilang":0,"rusak":4,"lebih_3thn":139,"kurang_3thn":73,"kembali_pusat":0,"masih_cabang":212,"aktif":43,"tidak_aktif":169,"pemda":0,"non_pemda":193,"sekolah":2,"cms":0,"tidak_terdaftar":17},{"cabang":"CABANG BALIKPAPAN","kanwil":"Kanwil 5","total":209,"assign":196,"reserved":0,"di_nasabah":196,"stok":2,"hilang":9,"rusak":2,"lebih_3thn":156,"kurang_3thn":53,"kembali_pusat":0,"masih_cabang":209,"aktif":78,"tidak_aktif":131,"pemda":4,"non_pemda":192,"sekolah":0,"cms":0,"tidak_terdaftar":13},{"cabang":"CABANG PALEMBANG","kanwil":"Kanwil 4","total":188,"assign":177,"reserved":0,"di_nasabah":177,"stok":1,"hilang":2,"rusak":8,"lebih_3thn":133,"kurang_3thn":55,"kembali_pusat":0,"masih_cabang":188,"aktif":39,"tidak_aktif":149,"pemda":0,"non_pemda":177,"sekolah":0,"cms":0,"tidak_terdaftar":11},{"cabang":"CABANG LABUAN","kanwil":"Kanwil 4","total":172,"assign":166,"reserved":0,"di_nasabah":166,"stok":6,"hilang":0,"rusak":0,"lebih_3thn":148,"kurang_3thn":24,"kembali_pusat":0,"masih_cabang":172,"aktif":58,"tidak_aktif":114,"pemda":0,"non_pemda":159,"sekolah":7,"cms":0,"tidak_terdaftar":6},{"cabang":"CABANG PEKANBARU","kanwil":"Kanwil 4","total":152,"assign":136,"reserved":0,"di_nasabah":136,"stok":0,"hilang":8,"rusak":8,"lebih_3thn":122,"kurang_3thn":30,"kembali_pusat":1,"masih_cabang":151,"aktif":19,"tidak_aktif":133,"pemda":1,"non_pemda":135,"sekolah":0,"cms":0,"tidak_terdaftar":16},{"cabang":"CABANG MAKASSAR","kanwil":"Kanwil 5","total":147,"assign":143,"reserved":0,"di_nasabah":143,"stok":4,"hilang":0,"rusak":0,"lebih_3thn":105,"kurang_3thn":42,"kembali_pusat":0,"masih_cabang":147,"aktif":30,"tidak_aktif":117,"pemda":0,"non_pemda":143,"sekolah":0,"cms":0,"tidak_terdaftar":4},{"cabang":"KANWIL 5","kanwil":"Kanwil 5","total":136,"assign":10,"reserved":0,"di_nasabah":10,"stok":126,"hilang":0,"rusak":0,"lebih_3thn":0,"kurang_3thn":136,"kembali_pusat":0,"masih_cabang":136,"aktif":2,"tidak_aktif":134,"pemda":0,"non_pemda":10,"sekolah":0,"cms":0,"tidak_terdaftar":126},{"cabang":"KANWIL 4","kanwil":"Kanwil 4","total":120,"assign":21,"reserved":0,"di_nasabah":21,"stok":99,"hilang":0,"rusak":0,"lebih_3thn":0,"kurang_3thn":120,"kembali_pusat":0,"masih_cabang":120,"aktif":11,"tidak_aktif":109,"pemda":10,"non_pemda":11,"sekolah":0,"cms":0,"tidak_terdaftar":99},{"cabang":"CABANG BANJARMASIN","kanwil":"Kanwil 5","total":94,"assign":93,"reserved":0,"di_nasabah":93,"stok":0,"hilang":1,"rusak":0,"lebih_3thn":94,"kurang_3thn":0,"kembali_pusat":0,"masih_cabang":94,"aktif":22,"tidak_aktif":72,"pemda":0,"non_pemda":93,"sekolah":0,"cms":0,"tidak_terdaftar":1},{"cabang":"Divisi DTB","kanwil":"Kantor Pusat","total":14,"assign":3,"reserved":0,"di_nasabah":3,"stok":11,"hilang":0,"rusak":0,"lebih_3thn":0,"kurang_3thn":14,"kembali_pusat":0,"masih_cabang":14,"aktif":0,"tidak_aktif":14,"pemda":0,"non_pemda":3,"sekolah":0,"cms":0,"tidak_terdaftar":11}],"jenis_global":[{"jenis":"NON PEMDA","total":29797},{"jenis":"PEMDA","total":19978},{"jenis":"SEKOLAH","total":3983},{"jenis":"TIDAK TERDAFTAR","total":2710},{"jenis":"CMS","total":14}],"status_global":[{"status":"Token di Nasabah","value":53772},{"status":"Stok","value":2134},{"status":"Hilang","value":408},{"status":"Rusak","value":168}],"top_corp":[{"name":"PEMERINTAH PROVINSI JAWA BARAT","value":1559},{"name":"DISDIK, PEMUDA DAN OLAH RAGA  KRW","value":1105},{"name":"DESA KAB BOGOR","value":853},{"name":"PEMERINTAH KOTA BANDUNG","value":784},{"name":"DINAS PEMBERDAYAAN MASYARAKAT DESA","value":732},{"name":"KANTOR DINAS DPMD","value":563},{"name":"DNS PEMBERDAYAAN MASYARAKAT & DESA","value":525},{"name":"BEN GJ DPKAD MAJALENGKA","value":503},{"name":"DINAS PEMBERDAYA MASY&DESA KAB CRB","value":480},{"name":"DPMD","value":435}]}</script>
+<script>
+let DATA = JSON.parse(document.getElementById('dashboard-data').textContent);
+
+const fmt = n => new Intl.NumberFormat('id-ID').format(n);
+const pct = (n, total) => total ? ((n/total)*100).toFixed(1) : '0.0';
+
+const COLORS = {
+  gold:'#C9A24B', goldBright:'#E8C673', green:'#34D399', red:'#F2607A',
+  amber:'#F0B44C', blue:'#5B8DEF', purple:'#9B8CF2', textLow:'#6E7790', textMid:'#AEB7C9'
+};
+
+const KANWIL_COLORS = {
+  'Kanwil 1': COLORS.gold,
+  'Kanwil 2': COLORS.blue,
+  'Kanwil 3': COLORS.green,
+  'Kanwil 4': COLORS.purple,
+  'Kanwil 5': COLORS.amber,
+  'Kantor Pusat': COLORS.red
+};
+
+// ===== Meta =====
+function renderMeta(){
+  document.getElementById('meta-units').textContent = '63 Cabang · 5 Kanwil';
+  document.getElementById('meta-total').textContent = fmt(DATA.kpi.total_token) + ' Unit';
+}
+renderMeta();
+
+// ===== KPI Cards =====
+function animateCount(el, target, duration=1100){
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now-start)/duration, 1);
+    const eased = 1 - Math.pow(1-p, 3);
+    el.textContent = fmt(Math.round(target*eased));
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function renderKPI(){
+  const kpiDefs = [
+    {
+      label:'Total Hard Token', value: DATA.kpi.total_token, sub: '63 cabang aktif',
+      accent: COLORS.gold, iconBg:'rgba(201,162,75,0.16)', iconColor: COLORS.gold,
+      trend:{type:'neutral', text:'BASELINE'},
+      icon:'<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M3 11h18"/><circle cx="8" cy="15" r="1"/>'
+    },
+    {
+      label:'Token di Nasabah', value: DATA.kpi.di_nasabah, sub: pct(DATA.kpi.di_nasabah, DATA.kpi.total_token)+'% dari total',
+      accent: COLORS.green, iconBg:'rgba(52,211,153,0.16)', iconColor: COLORS.green,
+      trend:{type:'up', text: pct(DATA.kpi.di_nasabah, DATA.kpi.total_token)+'%'},
+      icon:'<path d="M20 6 9 17l-5-5"/><path d="M3 12h4"/><path d="M3 6h4"/><path d="M3 18h4"/>'
+    },
+    {
+      label:'Hilang', value: DATA.kpi.hilang, sub: pct(DATA.kpi.hilang, DATA.kpi.total_token)+'% — perlu investigasi',
+      accent: COLORS.red, iconBg:'rgba(242,96,122,0.16)', iconColor: COLORS.red,
+      trend:{type:'warn', text:'RISIKO'},
+      icon:'<circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/>'
+    },
+    {
+      label:'Rusak', value: DATA.kpi.rusak, sub: pct(DATA.kpi.rusak, DATA.kpi.total_token)+'% — perlu retur/ganti',
+      accent: COLORS.amber, iconBg:'rgba(240,180,76,0.16)', iconColor: COLORS.amber,
+      trend:{type:'warn', text:'RISIKO'},
+      icon:'<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>'
+    },
+    {
+      label:'Stok Tersedia', value: DATA.kpi.stok, sub: pct(DATA.kpi.stok, DATA.kpi.total_token)+'% siap distribusi',
+      accent: COLORS.purple, iconBg:'rgba(155,140,242,0.16)', iconColor: COLORS.purple,
+      trend:{type:'neutral', text:'BUFFER'},
+      icon:'<path d="M21 8 12 3 3 8l9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>'
+    },
+  ];
+
+  const kpiRow = document.getElementById('kpi-row');
+  kpiRow.innerHTML = kpiDefs.map(k => `
+    <div class="kpi-card" style="--accent-color:${k.accent}">
+      <div class="kpi-top">
+        <div class="kpi-icon" style="--icon-bg:${k.iconBg}; --icon-color:${k.iconColor}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${k.icon}</svg>
+        </div>
+        <div class="kpi-trend ${k.trend.type}">${k.trend.text}</div>
+      </div>
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-value" data-count="${k.value}">0</div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('.kpi-value').forEach(el => animateCount(el, parseInt(el.dataset.count)));
+}
+renderKPI();
+
+// ===== Kanwil list (clickable filter) =====
+let activeKanwil = 'ALL';
+
+
+function renderKanwilList(){
+  const list = document.getElementById('kanwil-list');
+  const kanwilMax = Math.max(...DATA.per_kanwil.map(k=>k.total));
+  const FIXED_CABANG_COUNT = {
+    'Kanwil 1': 15,
+    'Kanwil 2': 13,
+    'Kanwil 3': 15,
+    'Kanwil 4': 13,
+    'Kanwil 5': 7,
+  };
+  list.innerHTML = DATA.per_kanwil.map(k => {
+    const color = KANWIL_COLORS[k.kanwil] || COLORS.gold;
+    const widthPct = (k.total / kanwilMax * 100).toFixed(1);
+    const isActive = activeKanwil === k.kanwil;
+    const cabangCount = FIXED_CABANG_COUNT[k.kanwil] ?? (k.jumlah_cabang || 1);
+    return `
+    <div class="kanwil-row ${isActive?'active':''}" data-kanwil="${k.kanwil}">
+      <div class="kanwil-name">${k.kanwil}<span class="sub">${cabangCount} cabang</span></div>
+      <div class="kanwil-bar-track">
+        <div class="kanwil-bar-seg kanwil-anim" style="width:0%; background:linear-gradient(90deg, ${color}, ${color}99);" data-w="${widthPct}"></div>
+      </div>
+      <div class="kanwil-value">${fmt(k.total)}</div>
+    </div>`;
+  }).join('');
+
+  requestAnimationFrame(()=>{
+    list.querySelectorAll('.kanwil-anim').forEach(el=>{
+      requestAnimationFrame(()=>{ el.style.width = el.dataset.w + '%'; });
+    });
+  });
+
+  list.querySelectorAll('.kanwil-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const kw = row.dataset.kanwil;
+      activeKanwil = (activeKanwil === kw) ? 'ALL' : kw;
+      document.getElementById('kanwil-filter-tag').textContent = activeKanwil === 'ALL' ? 'SEMUA KANWIL' : activeKanwil.toUpperCase();
+      renderKanwilList();
+      syncChipsWithKanwil();
+      renderTable();
+    });
+  });
+}
+renderKanwilList();
+
+function syncChipsWithKanwil(){
+  document.querySelectorAll('.filter-chip').forEach(c=>{
+    c.classList.toggle('active', c.dataset.kanwil === (activeKanwil==='ALL'?'ALL':activeKanwil));
+  });
+}
+
+// ============ SVG CHART HELPERS ============
+
+// ---- Donut chart (multi-segment) ----
+function svgDonut(segments, size=150, strokeWidth=20){
+  const r = (size - strokeWidth) / 2;
+  const cx = size/2, cy = size/2;
+  const circumference = 2 * Math.PI * r;
+  const total = segments.reduce((a,s)=>a+s.value, 0) || 1;
+  let offset = 0;
+  const paths = segments.map(seg => {
+    const frac = seg.value / total;
+    const dash = frac * circumference;
+    const gap = circumference - dash;
+    const rotate = (offset / total) * 360 - 90;
+    offset += seg.value;
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${seg.color}" stroke-width="${strokeWidth}"
+      stroke-dasharray="${dash.toFixed(2)} ${gap.toFixed(2)}" transform="rotate(${rotate} ${cx} ${cy})"
+      stroke-linecap="butt" class="donut-seg" style="--dash:${dash.toFixed(2)} ${gap.toFixed(2)}"/>`;
+  }).join('');
+  return `<svg viewBox="0 0 ${size} ${size}" width="100%" height="100%">${paths}</svg>`;
+}
+
+// ---- Gauge (single value vs total, semicircle-ish full ring) ----
+function svgGauge(value, total, color, size=120, strokeWidth=12){
+  const r = (size - strokeWidth) / 2;
+  const cx = size/2, cy = size/2;
+  const circumference = 2 * Math.PI * r;
+  const frac = total ? value/total : 0;
+  const dash = frac * circumference;
+  const gap = circumference - dash;
+  return `<svg viewBox="0 0 ${size} ${size}" width="100%" height="100%">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="${strokeWidth}"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${strokeWidth}"
+      stroke-dasharray="0 ${circumference.toFixed(2)}" transform="rotate(-90 ${cx} ${cy})" stroke-linecap="round"
+      class="gauge-fill" data-dash="${dash.toFixed(2)} ${gap.toFixed(2)}"/>
+  </svg>`;
+}
+
+function animateGaugeFill(container){
+  const circle = container.querySelector('.gauge-fill');
+  if(!circle) return;
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      circle.style.transition = 'stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)';
+      circle.setAttribute('stroke-dasharray', circle.dataset.dash);
+    }, 80);
+  });
+}
+
+// ---- Horizontal bar chart (simple, for stacked / ranked bars) ----
+function svgHBarChart(items, opts={}){
+  // items: [{label, segments:[{value,color,label}]}]  OR single value bars
+  const width = opts.width || 600;
+  const rowH = opts.rowH || 34;
+  const gap = opts.gap || 14;
+  const labelW = opts.labelW || 0;
+  const max = opts.max || Math.max(...items.map(it => it.segments.reduce((a,s)=>a+s.value,0)));
+  const chartW = width - labelW;
+  const height = items.length * (rowH+gap) - gap;
+
+  let bars = '';
+  items.forEach((it, i) => {
+    const y = i*(rowH+gap);
+    let x = labelW;
+    it.segments.forEach(seg => {
+      const w = (seg.value/max)*chartW;
+      bars += `<rect x="${x}" y="${y}" width="0" height="${rowH}" rx="6" fill="${seg.color}" class="hbar-seg" data-w="${w.toFixed(2)}"/>`;
+      x += w;
+    });
+  });
+
+  return {svg: `<svg viewBox="0 0 ${width} ${height}" width="100%" height="${height}">${bars}</svg>`, height};
+}
+
+function animateHBars(container){
+  requestAnimationFrame(()=>{
+    container.querySelectorAll('.hbar-seg').forEach((el,idx)=>{
+      setTimeout(()=>{
+        el.style.transition = 'width 0.9s cubic-bezier(.16,1,.3,1)';
+        el.setAttribute('width', el.dataset.w);
+      }, idx*40);
+    });
+  });
+}
+
+// ===== Status Donut =====
+const statusColorMap = { 'Token di Nasabah':COLORS.green, 'Stok':COLORS.purple, 'Hilang':COLORS.red, 'Rusak':COLORS.amber };
+
+function renderStatusDonut(){
+  const statusSegments = DATA.status_global.map(s => ({ value:s.value, color: statusColorMap[s.status] || COLORS.gold, label:s.status }));
+  document.getElementById('donutStatus').outerHTML = `<div id="donutStatus" style="width:100%;height:100%;">${svgDonut(statusSegments)}</div>`;
+  document.getElementById('donut-center-num').textContent = fmt(DATA.kpi.total_token);
+
+  const statusLegend = document.getElementById('status-legend');
+  statusLegend.innerHTML = DATA.status_global.map((s) => `
+    <div class="legend-item">
+      <div class="legend-left">
+        <div class="legend-swatch" style="background:${statusColorMap[s.status]||COLORS.gold}"></div>
+        <div class="legend-name">${s.status}</div>
+      </div>
+      <div><span class="legend-num">${fmt(s.value)}</span><span class="legend-pct">${pct(s.value, DATA.kpi.total_token)}%</span></div>
+    </div>
+  `).join('');
+}
+renderStatusDonut();
+
+// ===== Gauges (Umur token & Lokasi) =====
+function setupGauge(canvasId, value, total, color){
+  const el = document.getElementById(canvasId);
+  el.outerHTML = `<div id="${canvasId}" style="width:100%;height:100%;">${svgGauge(value, total, color)}</div>`;
+  animateGaugeFill(document.getElementById(canvasId));
+}
+
+function renderGauges(){
+  setupGauge('gaugeOld', DATA.kpi.lebih_3thn, DATA.kpi.total_token, COLORS.red);
+  setupGauge('gaugeNew', DATA.kpi.kurang_3thn, DATA.kpi.total_token, COLORS.green);
+  setupGauge('gaugeBranch', DATA.kpi.masih_cabang, DATA.kpi.total_token, COLORS.purple);
+  setupGauge('gaugeHQ', DATA.kpi.kembali_pusat, DATA.kpi.total_token, COLORS.blue);
+
+  document.getElementById('gaugeOldNum').textContent = pct(DATA.kpi.lebih_3thn, DATA.kpi.total_token)+'%';
+  document.getElementById('gaugeOldSub').textContent = fmt(DATA.kpi.lebih_3thn)+' unit';
+  document.getElementById('gaugeNewNum').textContent = pct(DATA.kpi.kurang_3thn, DATA.kpi.total_token)+'%';
+  document.getElementById('gaugeNewSub').textContent = fmt(DATA.kpi.kurang_3thn)+' unit';
+  document.getElementById('gaugeBranchNum').textContent = pct(DATA.kpi.masih_cabang, DATA.kpi.total_token)+'%';
+  document.getElementById('gaugeBranchSub').textContent = fmt(DATA.kpi.masih_cabang)+' unit';
+  document.getElementById('gaugeHQNum').textContent = pct(DATA.kpi.kembali_pusat, DATA.kpi.total_token)+'%';
+  document.getElementById('gaugeHQSub').textContent = fmt(DATA.kpi.kembali_pusat)+' unit';
+}
+renderGauges();
+
+// ===== Jenis Nasabah bullet bars =====
+const jenisColors = {
+  'NON PEMDA': COLORS.blue, 'PEMDA': COLORS.gold, 'SEKOLAH': COLORS.green,
+  'TIDAK TERDAFTAR': COLORS.red, 'CMS': COLORS.purple
+};
+
+function renderJenisBullets(){
+  const EXCLUDED = new Set(['TIDAK TERDAFTAR','CMS']);
+  const jenisFiltered = DATA.jenis_global.filter(j => !EXCLUDED.has(j.jenis));
+  const jenisBase = jenisFiltered.reduce((s,j)=>s+j.total, 0);
+  const jenisMax = Math.max(...jenisFiltered.map(j=>j.total));
+  const jenisBulletList = document.getElementById('jenis-bullet-list');
+  jenisBulletList.innerHTML = jenisFiltered.map(j => {
+    const color = jenisColors[j.jenis] || COLORS.gold;
+    const w = (j.total/jenisMax*100).toFixed(1);
+    return `
+    <div class="bullet-item">
+      <div class="bullet-top">
+        <div class="bullet-name">${j.jenis}</div>
+        <div class="bullet-val">${fmt(j.total)} <span style="color:var(--text-low)">(${pct(j.total, jenisBase)}%)</span></div>
+      </div>
+      <div class="bullet-track"><div class="bullet-fill bullet-anim" style="width:0%; background:${color};" data-w="${w}"></div></div>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{
+    jenisBulletList.querySelectorAll('.bullet-anim').forEach((el,idx)=>{
+      setTimeout(()=>{ el.style.width = el.dataset.w+'%'; }, idx*60+100);
+    });
+  });
+}
+renderJenisBullets();
+
+// ===== Aktivitas chart (assign breakdown) =====
+function renderChartAktivitas(){
+  const container = document.getElementById('chartAktivitas');
+  const tidakAktifAssigned = DATA.kpi.di_nasabah - DATA.kpi.aktif_transaksi;
+  const items = [
+    { label:'Token Ter-assign', segments:[
+      { value: DATA.kpi.aktif_transaksi, color: COLORS.green },
+      { value: tidakAktifAssigned, color: 'rgba(242,96,122,0.55)' },
+    ]}
+  ];
+  const labelW = 0;
+  const {svg, height} = svgHBarChart(items, {width:560, rowH:64, labelW, max: DATA.kpi.di_nasabah});
+  container.outerHTML = `
+    <div id="chartAktivitas" style="display:flex; flex-direction:column; height:100%; justify-content:center; gap:18px;">
+      <div style="width:100%;">${svg}</div>
+      <div style="display:flex; justify-content:center; gap:24px;">
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:3px;background:${COLORS.green};display:inline-block;"></span>Aktif Transaksi — ${fmt(DATA.kpi.aktif_transaksi)} (${pct(DATA.kpi.aktif_transaksi, DATA.kpi.assign)}%)</div>
+        <div style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)"><span style="width:10px;height:10px;border-radius:3px;background:rgba(242,96,122,0.55);display:inline-block;"></span>Tidak Transaksi — ${fmt(tidakAktifAssigned)} (${pct(tidakAktifAssigned, DATA.kpi.assign)}%)</div>
+      </div>
+      <div style="text-align:center; font-size:11.5px; color:var(--text-low);">Dari ${fmt(DATA.kpi.di_nasabah)} token yang ada di nasabah</div>
+    </div>`;
+  animateHBars(document.getElementById('chartAktivitas'));
+}
+renderChartAktivitas();
+
+// ===== Top Corp horizontal ranking bars =====
+function renderChartTopCorp(){
+  const container = document.getElementById('chartTopCorp');
+  const max = Math.max(...DATA.top_corp.map(c=>c.value));
+  const rows = DATA.top_corp.map((c,i) => {
+    const w = (c.value/max*100).toFixed(1);
+    const color = i===0 ? COLORS.gold : `rgba(201,162,75,${(0.85-i*0.065).toFixed(2)})`;
+    const shortName = c.name.length > 30 ? c.name.slice(0,28)+'…' : c.name;
+    return `
+    <div style="display:grid; grid-template-columns: 160px 1fr 52px; align-items:center; gap:10px; margin-bottom:8px;" title="${c.name}">
+      <div style="font-size:11px; color:var(--text-mid); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${shortName}</div>
+      <div style="height:14px; border-radius:6px; background:rgba(255,255,255,0.04); overflow:hidden;">
+        <div class="topcorp-anim" style="height:100%; width:0%; border-radius:6px; background:${color};" data-w="${w}"></div>
+      </div>
+      <div style="font-family:var(--font-mono); font-size:11.5px; color:var(--text-hi); text-align:right; font-weight:600;">${fmt(c.value)}</div>
+    </div>`;
+  }).join('');
+  container.outerHTML = `<div id="chartTopCorp" style="height:100%; overflow-y:auto; padding-right:4px; display:flex; flex-direction:column; justify-content:flex-start;">${rows}</div>`;
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('.topcorp-anim').forEach((el,idx)=>{
+      setTimeout(()=>{ el.style.transition='width 0.9s cubic-bezier(.16,1,.3,1)'; el.style.width = el.dataset.w+'%'; }, idx*50);
+    });
+  });
+}
+renderChartTopCorp();
+
+// ===== TABLE =====
+let sortKey = 'total';
+let sortDir = -1;
+let searchTerm = '';
+
+function getFilteredData(){
+  let data = DATA.per_cabang;
+  if(activeKanwil !== 'ALL'){
+    data = data.filter(c => c.kanwil === activeKanwil);
+  }
+  if(searchTerm){
+    data = data.filter(c => c.cabang.toLowerCase().includes(searchTerm.toLowerCase()));
+  }
+  return data;
+}
+
+function renderTable(){
+  const data = [...getFilteredData()].sort((a,b) => (a[sortKey]-b[sortKey])*sortDir);
+  const tbody = document.getElementById('cabang-tbody');
+  const maxTotal = Math.max(...DATA.per_cabang.map(c=>c.total));
+
+  tbody.innerHTML = data.map(c => {
+    const barW = (c.total/maxTotal*100).toFixed(1);
+    return `
+    <tr>
+      <td class="name-cell">${c.cabang}<span class="kw-tag">${c.kanwil.replace('Kanwil ','KW')}</span></td>
+      <td class="num">
+        <div class="mini-bar-cell">
+          <div class="mini-bar-track"><div class="mini-bar-fill" style="width:${barW}%"></div></div>
+          <span>${fmt(c.total)}</span>
+        </div>
+      </td>
+      <td class="num">${fmt((c.assign||0)+(c.reserved||0))}</td>
+      <td class="num">${fmt(c.stok)}</td>
+      <td class="num">${c.hilang > 0 ? `<span class="mini-pill warn">${fmt(c.hilang)}</span>` : '<span style="color:var(--text-low)">0</span>'}</td>
+      <td class="num">${c.rusak > 0 ? `<span class="mini-pill warn">${fmt(c.rusak)}</span>` : '<span style="color:var(--text-low)">0</span>'}</td>
+      <td class="num">${fmt(c.lebih_3thn)}</td>
+      <td class="num">${fmt(c.kurang_3thn)}</td>
+      <td class="num">${c.kembali_pusat > 0 ? `<span class="mini-pill ok">${fmt(c.kembali_pusat)}</span>` : '<span style="color:var(--text-low)">0</span>'}</td>
+      <td class="num">${fmt(c.aktif)}</td>
+    </tr>`;
+  }).join('');
+
+  const FIXED_COUNT_MAP = {'ALL':63,'Kanwil 1':15,'Kanwil 2':13,'Kanwil 3':15,'Kanwil 4':13,'Kanwil 5':7,'Kantor Pusat':1};
+  const branchCount = FIXED_COUNT_MAP[activeKanwil] ?? data.length;
+  document.getElementById('table-count-tag').textContent = branchCount + ' CABANG';
+}
+renderTable();
+
+document.querySelectorAll('thead th').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.key;
+    if(sortKey === key){ sortDir *= -1; } else { sortKey = key; sortDir = -1; }
+    renderTable();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchTerm = e.target.value;
+  renderTable();
+});
+
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    activeKanwil = chip.dataset.kanwil;
+    document.getElementById('kanwil-filter-tag').textContent = activeKanwil === 'ALL' ? 'SEMUA KANWIL' : activeKanwil.toUpperCase();
+    document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    renderKanwilList();
+    renderTable();
+  });
+});
+
+// ===== Re-render orchestrator (used after a new Excel file is uploaded) =====
+function renderDashboard(){
+  activeKanwil = 'ALL';
+  sortKey = 'total';
+  sortDir = -1;
+  searchTerm = '';
+  const searchInputEl = document.getElementById('searchInput');
+  if(searchInputEl) searchInputEl.value = '';
+  document.getElementById('kanwil-filter-tag').textContent = 'SEMUA KANWIL';
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.toggle('active', c.dataset.kanwil === 'ALL'));
+
+  renderMeta();
+  renderKPI();
+  renderKanwilList();
+  renderStatusDonut();
+  renderGauges();
+  renderJenisBullets();
+  renderChartAktivitas();
+  renderChartTopCorp();
+  renderTable();
+}
+
+// ===== Excel upload: parse & rebuild DATA =====
+const STATUS_KEYS = ['ASSIGN','RESERVED','STOK','HILANG','RUSAK'];
+const JENIS_KEYS = ['NON PEMDA','PEMDA','SEKOLAH','TIDAK TERDAFTAR','CMS'];
+const KANWIL_ORDER = ['Kanwil 1','Kanwil 2','Kanwil 3','Kanwil 4','Kanwil 5','Kantor Pusat'];
+
+function normStatus(s){
+  return (s||'').toString().trim().toUpperCase();
+}
+
+function buildDashboardData(rows){
+  // rows: array of objects with normalized keys:
+  // cabang, status, kanwil, pengembalian, umur, jenis, aktif, corpname
+  const total_token = rows.length;
+  const countWhere = (arr, pred) => arr.reduce((n,r)=>n+(pred(r)?1:0),0);
+
+  const kpi = {
+    total_token,
+    di_nasabah: countWhere(rows, r=>r.status==='TOKEN DI NASABAH' || r.status==='ASSIGN' || r.status==='RESERVED'),
+    assign: countWhere(rows, r=>r.status==='ASSIGN' || r.status==='TOKEN DI NASABAH'),
+    reserved: countWhere(rows, r=>r.status==='RESERVED'),
+    stok: countWhere(rows, r=>r.status==='STOK'),
+    hilang: countWhere(rows, r=>r.status==='HILANG'),
+    rusak: countWhere(rows, r=>r.status==='RUSAK'),
+    lebih_3thn: countWhere(rows, r=>r.umur==='> 3 Thn'),
+    kurang_3thn: countWhere(rows, r=>r.umur==='< 3 Thn'),
+    kembali_pusat: countWhere(rows, r=>r.pengembalian==='Token kembali ke Kantor Pusat'),
+    masih_cabang: countWhere(rows, r=>r.pengembalian==='Token Masih Dicabang'),
+    aktif_transaksi: countWhere(rows, r=>r.aktif==='Aktif Transaksi'),
+    tidak_transaksi: countWhere(rows, r=>r.aktif==='Tidak Transaksi'),
+  };
+
+  const kanwilSet = [...new Set(rows.map(r=>r.kanwil))];
+  const kanwilOrdered = KANWIL_ORDER.filter(k=>kanwilSet.includes(k)).concat(kanwilSet.filter(k=>!KANWIL_ORDER.includes(k)));
+  kpi.jumlah_kanwil = kanwilOrdered.length;
+  kpi.jumlah_cabang = new Set(rows.map(r=>r.cabang)).size;
+
+  function aggBlock(g){
+    return {
+      total: g.length,
+      di_nasabah: countWhere(g, r=>r.status==='TOKEN DI NASABAH' || r.status==='ASSIGN' || r.status==='RESERVED'),
+      assign: countWhere(g, r=>r.status==='ASSIGN' || r.status==='TOKEN DI NASABAH'),
+      reserved: countWhere(g, r=>r.status==='RESERVED'),
+      stok: countWhere(g, r=>r.status==='STOK'),
+      hilang: countWhere(g, r=>r.status==='HILANG'),
+      rusak: countWhere(g, r=>r.status==='RUSAK'),
+      lebih_3thn: countWhere(g, r=>r.umur==='> 3 Thn'),
+      kurang_3thn: countWhere(g, r=>r.umur==='< 3 Thn'),
+      kembali_pusat: countWhere(g, r=>r.pengembalian==='Token kembali ke Kantor Pusat'),
+      masih_cabang: countWhere(g, r=>r.pengembalian==='Token Masih Dicabang'),
+      aktif: countWhere(g, r=>r.aktif==='Aktif Transaksi'),
+      tidak_aktif: countWhere(g, r=>r.aktif==='Tidak Transaksi'),
+      pemda: countWhere(g, r=>r.jenis==='PEMDA'),
+      non_pemda: countWhere(g, r=>r.jenis==='NON PEMDA'),
+      sekolah: countWhere(g, r=>r.jenis==='SEKOLAH'),
+      cms: countWhere(g, r=>r.jenis==='CMS'),
+      tidak_terdaftar: countWhere(g, r=>r.jenis==='TIDAK TERDAFTAR'),
+    };
+  }
+
+  const per_kanwil = kanwilOrdered.map(kw => {
+    const g = rows.filter(r=>r.kanwil===kw);
+    return { kanwil: kw, ...aggBlock(g), jumlah_cabang: new Set(g.map(r=>r.cabang)).size };
+  });
+  // reorder keys to match original convention (kanwil, total, ..., jumlah_cabang, pemda...)
+  const per_kanwil_ordered = per_kanwil.map(b => ({
+    kanwil:b.kanwil, total:b.total, di_nasabah:b.di_nasabah, assign:b.assign, reserved:b.reserved, stok:b.stok,
+    hilang:b.hilang, rusak:b.rusak, lebih_3thn:b.lebih_3thn, kurang_3thn:b.kurang_3thn,
+    kembali_pusat:b.kembali_pusat, masih_cabang:b.masih_cabang, aktif:b.aktif, tidak_aktif:b.tidak_aktif,
+    jumlah_cabang:b.jumlah_cabang, pemda:b.pemda, non_pemda:b.non_pemda, sekolah:b.sekolah, cms:b.cms, tidak_terdaftar:b.tidak_terdaftar
+  }));
+
+  const cabangNames = [...new Set(rows.map(r=>r.cabang))];
+  const cabangKanwilMap = {};
+  rows.forEach(r=>{ if(!(r.cabang in cabangKanwilMap)) cabangKanwilMap[r.cabang]=r.kanwil; });
+
+  let per_cabang = cabangNames.map(cab => {
+    const g = rows.filter(r=>r.cabang===cab);
+    const b = aggBlock(g);
+    return {
+      cabang: cab, kanwil: cabangKanwilMap[cab], total:b.total, assign:b.assign, reserved:b.reserved,
+      di_nasabah:b.di_nasabah, stok:b.stok, hilang:b.hilang, rusak:b.rusak, lebih_3thn:b.lebih_3thn, kurang_3thn:b.kurang_3thn,
+      kembali_pusat:b.kembali_pusat, masih_cabang:b.masih_cabang, aktif:b.aktif, tidak_aktif:b.tidak_aktif,
+      pemda:b.pemda, non_pemda:b.non_pemda, sekolah:b.sekolah, cms:b.cms, tidak_terdaftar:b.tidak_terdaftar
+    };
+  });
+  per_cabang.sort((a,b)=>b.total-a.total);
+
+  const jenis_global = JENIS_KEYS.map(j => ({ jenis: j, total: countWhere(rows, r=>r.jenis===j) }));
+
+  const status_global = [
+    {status:'Token di Nasabah', value: kpi.di_nasabah},
+    {status:'Stok', value: kpi.stok},
+    {status:'Hilang', value: kpi.hilang},
+    {status:'Rusak', value: kpi.rusak},
+  ];
+
+  const EXCLUDE_NAMES = new Set(['STOK','HILANG','RUSAK']);
+  const corpCounts = {};
+  rows.forEach(r=>{
+    const name = (r.corpname||'').toString().trim();
+    if(!name || EXCLUDE_NAMES.has(name.toUpperCase())) return;
+    corpCounts[name] = (corpCounts[name]||0)+1;
+  });
+  const top_corp = Object.entries(corpCounts)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,10)
+    .map(([name,value])=>({name, value}));
+
+  return { kpi, per_kanwil: per_kanwil_ordered, per_cabang, jenis_global, status_global, top_corp };
+}
+
+function showUploadToast(state, title, sub){
+  const toast = document.getElementById('uploadToast');
+  const icon = document.getElementById('uploadToastIcon');
+  const titleEl = document.getElementById('uploadToastTitle');
+  const subEl = document.getElementById('uploadToastSub');
+
+  toast.classList.remove('success','error');
+  let iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="spin"><path d="M21 12a9 9 0 1 1-2.64-6.36"/></svg>';
+  if(state==='success'){
+    toast.classList.add('success');
+    iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+  } else if(state==='error'){
+    toast.classList.add('error');
+    iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/><circle cx="12" cy="16" r="0.5" fill="currentColor"/></svg>';
+  }
+  icon.innerHTML = iconSvg;
+  titleEl.textContent = title;
+  subEl.textContent = sub;
+  toast.classList.add('show');
+}
+
+document.getElementById('uploadToastClose').addEventListener('click', () => {
+  document.getElementById('uploadToast').classList.remove('show');
+});
+
+document.getElementById('uploadBtn').addEventListener('click', () => {
+  document.getElementById('fileInput').click();
+});
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+  showUploadToast('loading', 'Memproses file...', file.name);
+
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try{
+      const wb = XLSX.read(evt.target.result, {type:'array'});
+      const sheetName = wb.SheetNames.includes('Registrasi Hard Token') ? 'Registrasi Hard Token' : wb.SheetNames[0];
+      const sheet = wb.Sheets[sheetName];
+      const json = XLSX.utils.sheet_to_json(sheet, {defval:''});
+
+      if(!json.length){
+        showUploadToast('error', 'File kosong', 'Tidak ada baris data yang terbaca dari file ini.');
+        return;
+      }
+
+      const sample = json[0];
+      const keys = Object.keys(sample);
+      const findKey = (needle) => keys.find(k => k.toLowerCase().replace(/\s+/g,' ').trim().startsWith(needle.toLowerCase()));
+
+      const kCabang = findKey('cabang/kanwil') || findKey('cabang');
+      const kStatus = findKey('status');
+      const kKanwil = keys.find(k => k.trim().toLowerCase()==='kanwil');
+      const kPengembalian = findKey('pengembalian');
+      const kUmur = findKey('token lebih');
+      const kJenis = findKey('jenis nasabah');
+      const kAktif = findKey('aktif/tidak') || findKey('aktif');
+      const kCorp = findKey('corporate name');
+
+      if(!kCabang || !kStatus || !kKanwil || !kPengembalian || !kUmur || !kJenis || !kAktif){
+        showUploadToast('error', 'Format kolom tidak sesuai', 'Pastikan file mengikuti format template Registrasi Hard Token.');
+        return;
+      }
+
+      const rows = json.map(r => ({
+        cabang: (r[kCabang]||'').toString().trim(),
+        status: normStatus(r[kStatus]),
+        kanwil: (r[kKanwil]||'').toString().trim(),
+        pengembalian: (r[kPengembalian]||'').toString().trim(),
+        umur: (r[kUmur]||'').toString().trim(),
+        jenis: (r[kJenis]||'').toString().trim().toUpperCase(),
+        aktif: (r[kAktif]||'').toString().trim(),
+        corpname: kCorp ? (r[kCorp]||'').toString().trim() : '',
+      })).filter(r => r.cabang);
+
+      if(!rows.length){
+        showUploadToast('error', 'Data tidak terbaca', 'Tidak ada baris valid pada sheet yang dipilih.');
+        return;
+      }
+
+      DATA = buildDashboardData(rows);
+      renderDashboard();
+      showUploadToast('success', 'Data berhasil diperbarui', `${file.name} · ${fmt(rows.length)} baris token dimuat`);
+    } catch(err){
+      console.error(err);
+      showUploadToast('error', 'Gagal membaca file', 'Pastikan file berformat .xlsx dan tidak corrupt.');
+    } finally {
+      e.target.value = '';
+    }
+  };
+  reader.readAsArrayBuffer(file);
+});
+
+// ===== Generate view-only HTML export =====
+document.getElementById('generateBtn').addEventListener('click', () => {
+  try{
+    // Update tanggal status data ke hari ini sebelum generate
+    const now = new Date();
+    const bulanID = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    const tglStr = `Per ${now.getDate()} ${bulanID[now.getMonth()]} ${now.getFullYear()}`;
+    document.getElementById('meta-status-date').textContent = tglStr;
+
+    // Clone current DOM so live state (animations mid-flight, toasts) doesn't leak into export
+    const docClone = document.documentElement.cloneNode(true);
+
+    // 1) Bake current DATA into the embedded JSON data block
+    const dataScript = docClone.querySelector('#dashboard-data');
+    if(dataScript){ dataScript.textContent = JSON.stringify(DATA); }
+
+    // 2) Lock the upload & generate controls visually (view-only), without removing the underlying code
+    const styleTag = document.createElement('style');
+    styleTag.setAttribute('data-view-only-lock', 'true');
+    styleTag.textContent = `
+      #uploadBtn, #generateBtn, #fileInput { display:none !important; }
+      .upload-toast { display:none !important; }
+    `;
+    const headEl = docClone.querySelector('head');
+    if(headEl) headEl.appendChild(styleTag);
+
+    // 3) Hide the upload toast container state on load (reset any open toast)
+    const toastEl = docClone.querySelector('#uploadToast');
+    if(toastEl){ toastEl.classList.remove('show','success','error'); }
+
+    // 4) Reset file input value reference in the cloned markup (no selected file)
+    const fileInputEl = docClone.querySelector('#fileInput');
+    if(fileInputEl){ fileInputEl.removeAttribute('value'); }
+
+    const finalHtml = '<!DOCTYPE html>\n' + docClone.outerHTML;
+    const blob = new Blob([finalHtml], {type:'text/html'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0,10).replace(/-/g,'');
+    a.href = url;
+    a.download = `Dashboard_Hard_Token_ViewOnly_${stamp}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showUploadToast('success', 'File view-only berhasil dibuat', `${fmt(DATA.kpi.total_token)} unit token tersimpan dalam file`);
+  } catch(err){
+    console.error(err);
+    showUploadToast('error', 'Gagal membuat file', 'Terjadi kesalahan saat menyusun file HTML.');
+  }
+});
+
+</script>
+
+
+</body></html>
